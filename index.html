@@ -674,6 +674,24 @@
     font-style: italic;
     color: var(--ink);
   }
+  a.surface-card {
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    transition: background 200ms ease;
+  }
+  a.surface-card:hover {
+    background: var(--bg-lift);
+  }
+  a.surface-card .view-link {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: auto;
+    padding-top: var(--s-3);
+  }
 
   /* ============================================================
      08 · TOKENS
@@ -1154,11 +1172,12 @@
         <h4>Print Collateral</h4>
         <p>Heavyweight stock. Letterpress where possible. Copper foil on the menu. Hand-stamped room numbers.</p>
       </div>
-      <div class="surface-card">
+      <a class="surface-card" href="/image-direction.html">
         <div class="num">SURFACE / 04</div>
         <h4>AI Image Brief</h4>
         <p>Section 06 <em>is</em> the brief. Palette, light direction, subject hierarchy — all token-bound, all consistent.</p>
-      </div>
+        <div class="view-link">— View the brief →</div>
+      </a>
       <div class="surface-card">
         <div class="num">SURFACE / 05</div>
         <h4>Physical Touchpoints</h4>
