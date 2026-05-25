@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estancia Cafetera — Sprint 4 · AI Image Direction Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --obsidian: #1A1814; --ash: #E8E4DC; --copper: #B87333;
+    --bg: #2E1F15; --bg-deep: #1F1410; --bg-lift: #3A2818;
+    --terracotta-light: #E9D3C1; --terracotta-deep: #B8704A;
+    --green-deep: #2C3E2D; --fog: #C4BDB0; --ember: #C26A2C;
+    --ink: var(--ash); --ink-soft: #B8A88E; --ink-faint: #8A7B63;
+    --rule: rgba(232,228,220,0.1); --rule-soft: rgba(232,228,220,0.05);
+    --accent: var(--ember);
+    --t-mono: 11px; --t-body: 15px; --t-lede: 22px;
+    --s-1: 4px; --s-2: 8px; --s-3: 16px; --s-4: 24px;
+    --s-5: 40px; --s-6: 64px; --s-7: 104px; --s-8: 168px;
+    --font-wordmark: 'Archivo Black', sans-serif;
+    --font-editorial: 'Cormorant Garamond', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--t-body); line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.05; mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.85  0 0 0 0 0.78  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 var(--s-6); position: relative; z-index: 2; }
+  .masthead { padding: var(--s-8) 0 var(--s-7); border-bottom: 1px solid var(--rule); }
+  .meta-row { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: var(--s-7); }
+  .meta-row span:nth-child(2) { color: var(--accent); }
+  .doc-title { font-family: var(--font-wordmark); font-weight: 900; font-size: clamp(48px, 8vw, 120px); line-height: 0.95; letter-spacing: 0.01em; text-transform: uppercase; color: var(--ink); filter: url(#ink-bleed); margin-bottom: var(--s-5); display: block; }
+  .doc-subtitle { font-family: var(--font-editorial); font-style: italic; font-weight: 400; font-size: clamp(24px, 2.2vw, 36px); line-height: 1.3; color: var(--ink); max-width: 32ch; margin-bottom: var(--s-5); }
+  .doc-subtitle em { color: var(--accent); }
+  .doc-meta-grid { padding-top: var(--s-5); border-top: 1px solid var(--rule-soft); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-4); font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); line-height: 1.8; }
+  .doc-meta-grid strong { color: var(--ink); display: block; margin-bottom: 4px; }
+  section { padding: var(--s-8) 0 var(--s-7); border-bottom: 1px solid var(--rule); }
+  .sec-head { display: grid; grid-template-columns: 200px 1fr; gap: var(--s-5); margin-bottom: var(--s-6); align-items: start; }
+  .sec-num { font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); padding-top: 18px; }
+  .sec-title { font-family: var(--font-editorial); font-weight: 400; font-size: clamp(44px, 5.5vw, 84px); line-height: 1; letter-spacing: -0.02em; color: var(--ink); max-width: 22ch; }
+  .sec-title em { font-style: italic; color: var(--accent); }
+  .sec-lead { margin-bottom: var(--s-6); max-width: 64ch; font-family: var(--font-editorial); font-style: italic; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.5; color: var(--ink); }
+  .sec-lead em { color: var(--accent); }
+  .direction-rules { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--rule); background: var(--bg-deep); }
+  .direction-rule { padding: var(--s-5); border-right: 1px solid var(--rule); }
+  .direction-rule:last-child { border-right: none; }
+  .direction-rule h4 { font-family: var(--font-editorial); font-weight: 400; font-size: 26px; line-height: 1.1; color: var(--ink); margin-bottom: var(--s-3); }
+  .direction-rule h4 em { color: var(--accent); font-style: italic; }
+  .direction-rule p { font-family: var(--font-body); font-size: 14px; line-height: 1.65; color: var(--ink-soft); }
+  .direction-rule p em { font-family: var(--font-editorial); font-style: italic; color: var(--ink); }
+  .shot-category { margin-bottom: var(--s-6); border-top: 1px solid var(--rule); padding-top: var(--s-5); }
+  .shot-category:first-child { border-top: none; padding-top: 0; }
+  .shot-cat-head { display: grid; grid-template-columns: 280px 1fr; gap: var(--s-5); margin-bottom: var(--s-4); align-items: baseline; }
+  .shot-cat-id { font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .shot-cat-name { font-family: var(--font-editorial); font-weight: 400; font-size: 36px; line-height: 1.05; color: var(--ink); }
+  .shot-cat-name em { font-style: italic; color: var(--accent); }
+  .shot-list-ul { list-style: none; padding: 0; margin-left: 280px; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2) var(--s-5); }
+  .shot-list-ul li { font-family: var(--font-body); font-size: 14px; line-height: 1.65; color: var(--ink); padding: 8px 0; border-bottom: 1px solid var(--rule-soft); display: grid; grid-template-columns: 40px 1fr; gap: var(--s-2); }
+  .shot-list-ul li::before { content: attr(data-num); font-family: var(--font-mono); font-size: 10px; color: var(--accent); letter-spacing: 0.1em; }
+  .prompt-template { background: var(--bg-deep); color: var(--ink); padding: var(--s-6); font-family: var(--font-mono); font-size: 12.5px; line-height: 1.95; overflow-x: auto; border: 1px solid var(--rule); margin-bottom: var(--s-5); }
+  .prompt-template .tk-label { color: var(--accent); font-weight: 500; }
+  .prompt-template .tk-token { color: var(--terracotta-light); }
+  .prompt-template .tk-flag { color: var(--ember); font-weight: 500; }
+  .prompt-template .tk-comment { color: var(--ink-faint); font-style: italic; }
+  .prompt-template .tk-fill { color: var(--ink); }
+  .template-notes { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); margin-top: var(--s-5); }
+  .template-note h5 { font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s-3); }
+  .template-note p { font-family: var(--font-body); font-size: 14px; line-height: 1.65; color: var(--ink); }
+  .template-note p em { font-family: var(--font-editorial); font-style: italic; }
+  .prompt-group { margin-bottom: var(--s-6); }
+  .prompt-group-head { display: grid; grid-template-columns: 280px 1fr; gap: var(--s-5); margin-bottom: var(--s-4); align-items: baseline; padding-bottom: var(--s-3); border-bottom: 1px solid var(--rule); }
+  .prompt-group-id { font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .prompt-group-name { font-family: var(--font-editorial); font-weight: 400; font-size: 32px; line-height: 1.05; color: var(--ink); }
+  .prompt-group-name em { font-style: italic; color: var(--accent); }
+  .prompt-card { margin-bottom: var(--s-4); border: 1px solid var(--rule); background: var(--bg-deep); }
+  .prompt-card-head { padding: var(--s-3) var(--s-4); border-bottom: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-3); flex-wrap: wrap; }
+  .prompt-card-name { font-family: var(--font-editorial); font-style: italic; font-size: 18px; color: var(--ink); }
+  .prompt-card-id { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .prompt-card-body { padding: var(--s-4); font-family: var(--font-mono); font-size: 12.5px; line-height: 1.75; color: var(--terracotta-light); word-break: break-word; }
+  .prompt-card-body .pf { color: var(--ember); }
+  .video-card { margin-bottom: var(--s-4); border: 1px solid var(--rule); background: var(--bg-deep); padding: var(--s-5); display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); }
+  .video-meta h4 { font-family: var(--font-editorial); font-weight: 400; font-size: 26px; line-height: 1.1; color: var(--ink); margin-bottom: var(--s-3); }
+  .video-meta h4 em { font-style: italic; color: var(--accent); }
+  .video-meta .vmeta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); line-height: 1.9; margin-bottom: var(--s-3); }
+  .video-meta .vmeta strong { color: var(--accent); }
+  .video-meta .vuse { font-family: var(--font-editorial); font-style: italic; font-size: 15px; color: var(--ink); line-height: 1.5; }
+  .video-prompt { font-family: var(--font-mono); font-size: 12px; line-height: 1.7; color: var(--terracotta-light); background: var(--bg); padding: var(--s-4); border: 1px solid var(--rule-soft); }
+  .kittl-card { margin-bottom: var(--s-3); border: 1px solid var(--rule); background: var(--bg-deep); padding: var(--s-4); }
+  .kittl-card-head { display: grid; grid-template-columns: 1fr 280px; gap: var(--s-4); margin-bottom: var(--s-3); align-items: baseline; padding-bottom: var(--s-3); border-bottom: 1px solid var(--rule-soft); }
+  .kittl-name { font-family: var(--font-editorial); font-weight: 400; font-size: 22px; color: var(--ink); line-height: 1.1; }
+  .kittl-name em { font-style: italic; color: var(--accent); }
+  .kittl-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); text-align: right; line-height: 1.7; }
+  .kittl-meta strong { color: var(--accent); display: block; margin-bottom: 4px; }
+  .kittl-body { font-family: var(--font-mono); font-size: 12px; line-height: 1.7; color: var(--terracotta-light); }
+  .curation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); }
+  .curation-col h4 { font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: var(--s-4); padding-bottom: var(--s-3); border-bottom: 1px solid var(--rule); }
+  .curation-col.keep h4 { color: var(--accent); }
+  .curation-col.kill h4 { color: #d96666; }
+  .curation-col ul { list-style: none; padding: 0; }
+  .curation-col li { font-family: var(--font-editorial); font-style: italic; font-size: 20px; line-height: 1.5; color: var(--ink); padding: 12px 0; border-bottom: 1px solid var(--rule-soft); }
+  .curation-col li:last-child { border-bottom: none; }
+  .phase { display: grid; grid-template-columns: 80px 1fr 200px; gap: var(--s-5); padding: var(--s-4) 0; border-bottom: 1px solid var(--rule-soft); align-items: baseline; }
+  .phase:last-child { border-bottom: none; }
+  .phase-num { font-family: var(--font-wordmark); font-size: 48px; line-height: 1; color: var(--accent); filter: url(#ink-bleed); }
+  .phase-body h4 { font-family: var(--font-editorial); font-weight: 400; font-size: 26px; line-height: 1.1; color: var(--ink); margin-bottom: 6px; }
+  .phase-body h4 em { font-style: italic; color: var(--accent); }
+  .phase-body p { font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+  .phase-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); line-height: 1.9; text-align: right; }
+  .phase-meta strong { color: var(--accent); }
+  footer { padding: var(--s-7) 0 var(--s-8); display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); align-items: end; }
+  footer .mark { font-family: var(--font-wordmark); font-weight: 900; font-size: 32px; line-height: 1; text-transform: uppercase; letter-spacing: 0.02em; color: var(--ink); filter: url(#ink-bleed); }
+  footer .meta { font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); text-align: right; line-height: 1.9; }
+  @media (max-width: 1000px) {
+    .sec-head, .shot-cat-head, .prompt-group-head, .kittl-card-head { grid-template-columns: 1fr; gap: var(--s-3); }
+    .shot-list-ul { margin-left: 0; grid-template-columns: 1fr; }
+    .direction-rules, .template-notes, .curation-grid { grid-template-columns: 1fr; }
+    .direction-rule { border-right: none; border-bottom: 1px solid var(--rule); }
+    .video-card { grid-template-columns: 1fr; }
+    .phase { grid-template-columns: 60px 1fr; gap: var(--s-3); }
+    .phase-meta { grid-column: 1 / -1; text-align: left; margin-top: var(--s-2); }
+    .doc-meta-grid { grid-template-columns: 1fr 1fr; }
+    footer { grid-template-columns: 1fr; }
+    footer .meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="ink-bleed">
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+    <feGaussianBlur in="displaced" stdDeviation="0.3" result="blurred"/>
+    <feComponentTransfer in="blurred"><feFuncA type="linear" slope="1.4" intercept="-0.1"/></feComponentTransfer>
+  </filter>
+</svg>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="meta-row">
+      <span>Sprint 4 · Image Direction Brief</span>
+      <span>Midjourney v7 · Sora · Kittl</span>
+      <span>22 · 05 · 2026</span>
+    </div>
+    <h1 class="doc-title">The Image<br>Direction</h1>
+    <p class="doc-subtitle">A complete prompt library for the photography, video, and graphic identity of <em>Estancia Cafetera</em>.</p>
+    <div class="doc-meta-grid">
+      <div><strong>Tools</strong>Midjourney v7<br>Sora · Runway · Kling<br>Kittl · Affinity</div>
+      <div><strong>Output</strong>~40 hero images<br>8 video clips<br>12 graphic mockups</div>
+      <div><strong>Use cases</strong>Framer site<br>Guest portal<br>Social · print</div>
+      <div><strong>Brand</strong>Estancia Cafetera<br>Tepoztlán, Morelos<br>v4 system</div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">01 — The Direction</div>
+      <h2 class="sec-title">Matter, not <em>moment.</em></h2>
+    </div>
+    <p class="sec-lead">Every image, every video, every graphic must answer one question: <em>does this feel observed, or does this feel produced?</em> The brand only ships the first.</p>
+    <div class="direction-rules">
+      <div class="direction-rule">
+        <h4>Light is a <em>character</em></h4>
+        <p>Single-source natural light. The hour before sunrise, the hour after. Long shadows. Specular highlights on stone, ceramic, copper. <em>No flash, no fill, no HDR.</em> If the room is dim, photograph the dimness.</p>
+      </div>
+      <div class="direction-rule">
+        <h4>Texture in the <em>foreground</em></h4>
+        <p>The closest thing to camera must show material truth — chisel marks on stone, throwing rings on ceramic, slubs on linen, crema on coffee. <em>Never airbrushed, never staged.</em></p>
+      </div>
+      <div class="direction-rule">
+        <h4>People through <em>hands</em></h4>
+        <p>Show the work, not the face. Barista hands tamping. Farmer hands sorting cherries. Cook hands kneading. Guest hands holding a cup. <em>Faces only in candid, observed moments — never to camera.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">02 — The Shot List</div>
+      <h2 class="sec-title">Every image the brand <em>needs.</em></h2>
+    </div>
+    <p class="sec-lead">Organized by surface use case. Forty hero images across eight categories. <em>Generate in this order</em> — landscape first to establish mood, lifestyle last because it depends on everything else.</p>
+
+    <div class="shot-category">
+      <div class="shot-cat-head"><div class="shot-cat-id">/ Category 01 · 06 shots</div><h3 class="shot-cat-name">Landscape <em>& mood</em></h3></div>
+      <ul class="shot-list-ul">
+        <li data-num="01">Tepoztlán volcanic horizon at dawn, mist in valley</li>
+        <li data-num="02">Coffee field rows, low side light, no people</li>
+        <li data-num="03">Mist rolling over highland field, ground-level</li>
+        <li data-num="04">Stone path through coffee plants, morning shadow</li>
+        <li data-num="05">Single coffee plant detail, dew on leaves</li>
+        <li data-num="06">Volcanic stone wall, raking afternoon light</li>
+      </ul>
+    </div>
+
+    <div class="shot-category">
+      <div class="shot-cat-head"><div class="shot-cat-id">/ Category 02 · 06 shots</div><h3 class="shot-cat-name">Architecture <em>& interiors</em></h3></div>
+      <ul class="shot-list-ul">
+        <li data-num="07">Wooden hacienda door, hand-forged hinges, side light</li>
+        <li data-num="08">Stone courtyard at golden hour, no people</li>
+        <li data-num="09">Dark wood corridor with single window light</li>
+        <li data-num="10">Room interior — bed, linen, stone wall, morning light</li>
+        <li data-num="11">Stone bath detail, copper fixture, water beading</li>
+        <li data-num="12">Wood-burning hearth, ash still settling, low light</li>
+      </ul>
+    </div>
+
+    <div class="shot-category">
+      <div class="shot-cat-head"><div class="shot-cat-id">/ Category 03 · 06 shots</div><h3 class="shot-cat-name">Coffee <em>experience</em></h3></div>
+      <ul class="shot-list-ul">
+        <li data-num="13">Hands sorting coffee cherries on wooden table</li>
+        <li data-num="14">Drying patio at midday, beans in geometric rows</li>
+        <li data-num="15">Hand-thrown ceramic cup, café de olla steaming</li>
+        <li data-num="16">Barista hands tamping espresso, copper portafilter</li>
+        <li data-num="17">Coffee bag with hand-stamped label on dark wood</li>
+        <li data-num="18">Cupping spoon, three cups, ceramic counter</li>
+      </ul>
+    </div>
+
+    <div class="shot-category">
+      <div class="shot-cat-head"><div class="shot-cat-id">/ Category 04 · 06 shots</div><h3 class="shot-cat-name">Culinary <em>& Mexican plates</em></h3></div>
+      <ul class="shot-list-ul">
+        <li data-num="19">Huevos a la cazuela, clay pot, morning light from left</li>
+        <li data-num="20">Conchas and café de olla on dark wood, two place settings</li>
+        <li data-num="21">Yogurt de cabra with honey, hand-thrown bowl, side light</li>
+        <li data-num="22">Tortillas being pressed by hand, comal in background</li>
+        <li data-num="23">Mole detail in ceramic bowl, single spoon, deep shadow</li>
+        <li data-num="24">Breakfast table setting, two chairs, morning courtyard</li>
+      </ul>
+    </div>
+
+    <div class="shot-category">
+      <div class="shot-cat-head"><div class="shot-cat-id">/ Category 05 · 04 shots</div><h3 class="shot-cat-name">Drinks</h3></div>
+      <ul class="shot-list-ul">
+        <li data-num="25">Mezcal in clay copita, salt and orange beside, candlelit</li>
+        <li data-num="26">Agua fresca in ceramic pitcher, dappled afternoon light</li>
+        <li data-num="27">Herbal infusion in glass, herbs floating, low light</li>
+        <li data-num="28">Café de olla in clay mug, cinnamon stick, steam rising</li>
+      </ul>
+    </div>
+
+    <div class="shot-category">
+      <div class="shot-cat-head"><div class="shot-cat-id">/ Category 06 · 04 shots</div><h3 class="shot-cat-name">Lifestyle <em>& slow moments</em></h3></div>
+      <ul class="shot-list-ul">
+        <li data-num="29">Empty hammock in shaded courtyard, book left open</li>
+        <li data-num="30">Pool surface at golden hour, no swimmer, towel on stone edge</li>
+        <li data-num="31">Linen-wrapped legs reading on stone steps, no face</li>
+        <li data-num="32">Open journal on wooden table, pen, half-finished coffee</li>
+      </ul>
+    </div>
+
+    <div class="shot-category">
+      <div class="shot-cat-head"><div class="shot-cat-id">/ Category 07 · 04 shots</div><h3 class="shot-cat-name">Material <em>details</em></h3></div>
+      <ul class="shot-list-ul">
+        <li data-num="33">Copper kitchen pan hanging, patina visible</li>
+        <li data-num="34">Slubbed linen folded on stone shelf</li>
+        <li data-num="35">Hand-thrown ceramic stack, throwing rings catching light</li>
+        <li data-num="36">Wooden key fob with stamped room number, leather cord</li>
+      </ul>
+    </div>
+
+    <div class="shot-category">
+      <div class="shot-cat-head"><div class="shot-cat-id">/ Category 08 · 04 shots</div><h3 class="shot-cat-name">People <em>through work</em></h3></div>
+      <ul class="shot-list-ul">
+        <li data-num="37">Farmer's hands holding coffee cherries, no face</li>
+        <li data-num="38">Cook's hands kneading masa, flour on forearm</li>
+        <li data-num="39">Gardener's hand on coffee plant, pruning shears</li>
+        <li data-num="40">Two figures walking distant path through field, backs to camera</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">03 — Master Template</div>
+      <h2 class="sec-title">One <em>structure.</em> Forty prompts.</h2>
+    </div>
+    <p class="sec-lead">The locked Midjourney v7 prompt structure. Every shot in Section 02 fills these tokens. <em>Never deviate from the camera, palette, or negative blocks</em> — those are what keep the library consistent.</p>
+
+    <pre class="prompt-template"><span class="tk-comment">/* MASTER PROMPT — Midjourney v7 syntax */</span>
+
+<span class="tk-label">[SUBJECT]</span>      <span class="tk-fill">→ filled per shot · see Section 04</span>
+
+<span class="tk-label">[LIGHT]</span>        <span class="tk-token">morning side light from left, raking, long shadows, 7am,
+                window light, soft falloff, single light source, no fill</span>
+
+<span class="tk-label">[COMPOSITION]</span>  <span class="tk-token">off-center subject, generous negative space,
+                rule-of-thirds, low camera angle, asymmetric framing</span>
+
+<span class="tk-label">[MATERIAL]</span>     <span class="tk-token">hand-thrown stoneware, dark wood, copper patina,
+                slubbed natural linen, volcanic stone, visible texture,
+                lived-in, unpolished, hand-touched</span>
+
+<span class="tk-label">[PALETTE]</span>      <span class="tk-token">warm terracotta and deep brown earth tones,
+                ash white linen, copper accent, deep green foliage,
+                muted color, no saturation, no neon, no bright primaries</span>
+
+<span class="tk-label">[CAMERA]</span>       <span class="tk-token">medium format film photography, Mamiya 7,
+                Kodak Portra 400, slight grain, shallow depth of field,
+                f/2.8, soft focus falloff</span>
+
+<span class="tk-label">[MOOD]</span>         <span class="tk-token">quiet, observed, intimate, candid documentary,
+                no performance, no posing, morning silence</span>
+
+<span class="tk-label">[NEGATIVE]</span>     <span class="tk-token">--no people facing camera, smiling, logos, signage,
+                modern technology, plastic, neon, HDR, drone view,
+                wide grin, stock photography, tourist</span>
+
+<span class="tk-label">[FLAGS]</span>        <span class="tk-flag">--ar 4:5</span> <span class="tk-comment">/* portrait · default · for web hero */</span>
+              <span class="tk-flag">--style raw</span> <span class="tk-comment">/* less MJ stylization, more photographic */</span>
+              <span class="tk-flag">--stylize 200</span> <span class="tk-comment">/* low-to-mid styling, prevents over-rendering */</span>
+              <span class="tk-flag">--v 7</span></pre>
+
+    <div class="template-notes">
+      <div class="template-note">
+        <h5>— Aspect ratios by use</h5>
+        <p><em>--ar 4:5</em> for Framer hero portraits, social verticals. <em>--ar 3:2</em> for Framer wide blocks, room galleries. <em>--ar 16:9</em> for video stills, header bars. <em>--ar 1:1</em> for Instagram grid, thumbnail tiles.</p>
+      </div>
+      <div class="template-note">
+        <h5>— Stylize discipline</h5>
+        <p><em>--stylize 200</em> is the default. Going higher (400+) makes Midjourney add invented details — fake plants, ornamental serving ware, decorative kitsch. The brand fails. <em>Never above 250.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">04 — Ready Prompts</div>
+      <h2 class="sec-title">Forty prompts. <em>Copy. Paste. Generate.</em></h2>
+    </div>
+    <p class="sec-lead">Each prompt is complete and production-ready. Paste directly into Midjourney v7. <em>No editing required.</em></p>
+
+    <div class="prompt-group">
+      <div class="prompt-group-head"><div class="prompt-group-id">/ Group 01 · Landscape & Mood</div><h3 class="prompt-group-name">Landscape <em>& mood</em></h3></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">01 · Tepoztlán dawn</span><span class="prompt-card-id">EC-LS-01</span></div><div class="prompt-card-body">Tepoztlán volcanic mountains at dawn, low mist in the valley, single-source morning light from camera right, long shadows across the ridgeline, deep earth tones, terracotta and muted green, no people, no buildings, medium format film, Mamiya 7, Kodak Portra 400, slight grain, soft focus falloff, quiet documentary atmosphere <span class="pf">--ar 16:9 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">02 · Coffee rows, low light</span><span class="prompt-card-id">EC-LS-02</span></div><div class="prompt-card-body">Rows of coffee plants on a hillside, photographed in the hour before sunrise, side light from left, long ground shadows between rows, no people, no machinery, deep green foliage and terracotta earth, medium format film, Mamiya 7, Kodak Portra 400, slight grain, shallow depth of field <span class="pf">--ar 3:2 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">03 · Mist over field</span><span class="prompt-card-id">EC-LS-03</span></div><div class="prompt-card-body">Highland field with low rolling mist, ground-level perspective, single-source dawn light, pale grey-green palette with warm earth foreground, no people, no animals, negative space dominant, atmospheric and quiet, medium format film, Hasselblad, Kodak Portra 400, soft grain <span class="pf">--ar 16:9 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">04 · Stone path</span><span class="prompt-card-id">EC-LS-04</span></div><div class="prompt-card-body">Worn stone path through a coffee plantation, raking morning light from camera left casting long shadows, hand-laid volcanic stones, muted earth palette with deep green foliage on either side, no people, medium format film, slight grain, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">05 · Coffee plant detail</span><span class="prompt-card-id">EC-LS-05</span></div><div class="prompt-card-body">Macro detail of a single coffee plant branch with red cherries and dew, side light from left, shallow depth of field with deep green foliage out of focus behind, no hands, no people, hyper-natural color, medium format film, Portra 400, slight grain <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">06 · Volcanic stone wall</span><span class="prompt-card-id">EC-LS-06</span></div><div class="prompt-card-body">Hand-built volcanic stone wall, raking afternoon light from camera right, deep textured shadows in every crevice, no people, no signage, warm dark stone palette, medium format film, Mamiya 7, Kodak Portra 400, sharp foreground texture, soft background falloff <span class="pf">--ar 3:2 --style raw --stylize 200 --v 7</span></div></div>
+    </div>
+
+    <div class="prompt-group">
+      <div class="prompt-group-head"><div class="prompt-group-id">/ Group 02 · Architecture & Interiors</div><h3 class="prompt-group-name">Architecture <em>& interiors</em></h3></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">07 · Hacienda door</span><span class="prompt-card-id">EC-AR-01</span></div><div class="prompt-card-body">Aged wooden hacienda door with hand-forged iron hinges, side light from camera left grazing the grain, deep brown wood and dark iron, no people, no logos, visible patina and chisel marks, medium format film, Mamiya 7, Kodak Portra 400, slight grain <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">08 · Stone courtyard, golden hour</span><span class="prompt-card-id">EC-AR-02</span></div><div class="prompt-card-body">Empty Mexican hacienda courtyard with volcanic stone floor, golden hour side light casting long shadows from a single column, deep earth palette, terracotta walls and dark wood, no people, no furniture out of place, medium format film, Hasselblad, Portra 400, soft grain <span class="pf">--ar 3:2 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">09 · Dark wood corridor</span><span class="prompt-card-id">EC-AR-03</span></div><div class="prompt-card-body">Long dark wood corridor with a single window at the far end, dramatic single-source side light from the window, deep brown wood walls and ceiling beams, terracotta floor tiles, no people, atmospheric depth, medium format film, Mamiya 7, Portra 400, slight grain, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">10 · Room interior, morning</span><span class="prompt-card-id">EC-AR-04</span></div><div class="prompt-card-body">Boutique hotel room interior in a Mexican hacienda, ash-white linen bed with slubbed natural texture, volcanic stone wall behind, single-source morning light from camera left, dark wood floor and beams, no people, no clutter, no modern technology visible, medium format film, Portra 400, slight grain <span class="pf">--ar 3:2 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">11 · Stone bath, copper</span><span class="prompt-card-id">EC-AR-05</span></div><div class="prompt-card-body">Stone bath detail with hand-hammered copper fixture, water beading on stone, side light from camera right, deep earth palette with copper accent, no people, no products visible, medium format film, Hasselblad, Portra 400, sharp foreground texture <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">12 · Wood-burning hearth</span><span class="prompt-card-id">EC-AR-06</span></div><div class="prompt-card-body">Stone hearth with ash still settling from a recent fire, single ember glowing, low ambient light from a single window at upper right, deep shadow palette with ember warmth, no people, no decorative objects, medium format film, Mamiya 7, Portra 400, atmospheric grain <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+    </div>
+
+    <div class="prompt-group">
+      <div class="prompt-group-head"><div class="prompt-group-id">/ Group 03 · Coffee Experience</div><h3 class="prompt-group-name">Coffee <em>experience</em></h3></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">13 · Hands sorting cherries</span><span class="prompt-card-id">EC-CF-01</span></div><div class="prompt-card-body">Weathered farmer hands sorting red coffee cherries on a wooden table, no face visible, side light from camera left, dark wood surface and deep red cherries, no logos, no jewelry, candid observed moment, medium format film, Mamiya 7, Portra 400, slight grain, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">14 · Drying patio</span><span class="prompt-card-id">EC-CF-02</span></div><div class="prompt-card-body">Coffee drying patio at midday with beans arranged in geometric rows, single elevated viewpoint, hard overhead light creating sharp pattern shadows, no people, terracotta and warm earth palette, medium format film, Hasselblad, Portra 400, slight grain <span class="pf">--ar 3:2 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">15 · Café de olla, steaming</span><span class="prompt-card-id">EC-CF-03</span></div><div class="prompt-card-body">Hand-thrown ceramic mug of café de olla, gentle steam rising, cinnamon stick visible, side light from camera left, dark wood table, deep brown and terracotta palette, no hands, no people, intimate still life, medium format film, Mamiya 7, Portra 400, soft focus falloff <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">16 · Barista tamping</span><span class="prompt-card-id">EC-CF-04</span></div><div class="prompt-card-body">Barista hands tamping espresso in a hand-hammered copper portafilter, no face visible, side light from camera left, dark wood counter, copper and dark palette, focused intimate moment, candid not posed, medium format film, Portra 400, slight grain, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">17 · Coffee bag, stamped</span><span class="prompt-card-id">EC-CF-05</span></div><div class="prompt-card-body">Natural canvas coffee bag with hand-stamped dark label, no readable text, resting on dark wood, side light from camera right, slight wear and patina, deep earth palette, no hands visible, still life composition, medium format film, Hasselblad, Portra 400, sharp texture <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">18 · Cupping setup</span><span class="prompt-card-id">EC-CF-06</span></div><div class="prompt-card-body">Three hand-thrown ceramic cupping cups in a row, single cupping spoon resting on the rim of one, side light from camera left, dark wood counter, no people, no labels visible, intimate documentary still life, medium format film, Mamiya 7, Portra 400, slight grain <span class="pf">--ar 3:2 --style raw --stylize 200 --v 7</span></div></div>
+    </div>
+
+    <div class="prompt-group">
+      <div class="prompt-group-head"><div class="prompt-group-id">/ Group 04 · Culinary & Mexican Plates</div><h3 class="prompt-group-name">Culinary <em>& Mexican plates</em></h3></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">19 · Huevos a la cazuela</span><span class="prompt-card-id">EC-CL-01</span></div><div class="prompt-card-body">Huevos a la cazuela in a clay cazuela pot, eggs nested in chorizo and tomato, side light from camera left, dark wood table, deep red and warm earth palette, no hands, no garnish, honest plating, medium format film, Mamiya 7, Portra 400, slight grain, top-down at 30 degree angle <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">20 · Conchas & café de olla</span><span class="prompt-card-id">EC-CL-02</span></div><div class="prompt-card-body">Two conchas on a hand-thrown ceramic plate next to a steaming clay mug of café de olla, dark wood table, side light from camera left, warm sugar tones and deep brown palette, no hands, intimate breakfast still life, medium format film, Portra 400, slight grain <span class="pf">--ar 3:2 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">21 · Yogurt de cabra, miel</span><span class="prompt-card-id">EC-CL-03</span></div><div class="prompt-card-body">Goat milk yogurt in a hand-thrown ceramic bowl with a drizzle of dark honey, side light from camera left, dark wood surface, ash-white yogurt and amber honey, no hands, simple intimate composition, medium format film, Mamiya 7, Portra 400, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">22 · Tortillas, hand-pressed</span><span class="prompt-card-id">EC-CL-04</span></div><div class="prompt-card-body">Hands pressing fresh masa tortillas, comal heating in background out of focus, no face visible, side light from camera left, deep earth and warm cream palette, candid documentary moment, medium format film, Mamiya 7, Portra 400, slight grain, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">23 · Mole in ceramic bowl</span><span class="prompt-card-id">EC-CL-05</span></div><div class="prompt-card-body">Dark mole in a hand-thrown ceramic bowl, single wooden spoon resting inside, side light from camera left creating deep shadow on the far side, dark wood table, deep brown and burnt sienna palette, no hands, intimate still life, medium format film, Hasselblad, Portra 400 <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">24 · Breakfast table, courtyard</span><span class="prompt-card-id">EC-CL-06</span></div><div class="prompt-card-body">Two-person breakfast table setting in a Mexican hacienda courtyard, hand-thrown ceramics and linen napkins, single-source morning light from camera left, two empty chairs, no people present, observed quiet moment before service, medium format film, Mamiya 7, Portra 400, slight grain <span class="pf">--ar 3:2 --style raw --stylize 200 --v 7</span></div></div>
+    </div>
+
+    <div class="prompt-group">
+      <div class="prompt-group-head"><div class="prompt-group-id">/ Group 05 · Drinks</div><h3 class="prompt-group-name">Drinks</h3></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">25 · Mezcal, candlelit</span><span class="prompt-card-id">EC-DR-01</span></div><div class="prompt-card-body">Mezcal in a clay copita with sal de gusano and orange slice beside it, candlelit ambient light from camera right, dark wood table, deep amber and ember palette, no hands, intimate evening still life, medium format film, Mamiya 7, Portra 400, slight grain, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">26 · Agua fresca, dappled light</span><span class="prompt-card-id">EC-DR-02</span></div><div class="prompt-card-body">Hand-thrown ceramic pitcher of agua fresca in dappled afternoon courtyard light, deep red color visible through the pitcher rim, no hands, no people, terracotta and dark earth surroundings, medium format film, Hasselblad, Portra 400, slight grain <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">27 · Herbal infusion</span><span class="prompt-card-id">EC-DR-03</span></div><div class="prompt-card-body">Glass cup of herbal infusion with floating herbs, side light from camera left, dark wood surface, pale amber liquid against deep brown background, no hands, intimate still life, medium format film, Mamiya 7, Portra 400, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">28 · Café de olla, steam</span><span class="prompt-card-id">EC-DR-04</span></div><div class="prompt-card-body">Clay mug of café de olla with a cinnamon stick, gentle steam rising, side light from camera left, dark wood table, deep brown and terracotta palette, no hands, no garnish, observed moment, medium format film, Mamiya 7, Portra 400, slight grain <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+    </div>
+
+    <div class="prompt-group">
+      <div class="prompt-group-head"><div class="prompt-group-id">/ Group 06 · Lifestyle</div><h3 class="prompt-group-name">Lifestyle <em>& slow moments</em></h3></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">29 · Empty hammock, book</span><span class="prompt-card-id">EC-LF-01</span></div><div class="prompt-card-body">Empty linen hammock in a shaded Mexican courtyard, open book resting on the fabric, dappled afternoon light filtering through palms, no people, deep earth and ash-white palette, observed quiet moment, medium format film, Mamiya 7, Portra 400, slight grain <span class="pf">--ar 3:2 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">30 · Pool, golden hour</span><span class="prompt-card-id">EC-LF-02</span></div><div class="prompt-card-body">Pool surface at golden hour with reflections of surrounding stone, single rolled linen towel on the stone edge, no swimmer, no people, deep amber light and stone palette, intimate observed atmosphere, medium format film, Hasselblad, Portra 400, slight grain, shallow depth of field <span class="pf">--ar 3:2 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">31 · Reading on steps</span><span class="prompt-card-id">EC-LF-03</span></div><div class="prompt-card-body">Person sitting on stone steps reading a book, frame cropped to show only linen-wrapped legs and hands holding the book, no face visible, side light from camera left, deep earth tones with ash linen, candid observed moment, medium format film, Mamiya 7, Portra 400, slight grain <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">32 · Open journal, coffee</span><span class="prompt-card-id">EC-LF-04</span></div><div class="prompt-card-body">Open leather journal on a dark wood table, fountain pen resting in the spine, half-finished ceramic cup of coffee beside, side light from camera left, deep brown palette with cream paper, no hands, no people, observed still life, medium format film, Mamiya 7, Portra 400, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+    </div>
+
+    <div class="prompt-group">
+      <div class="prompt-group-head"><div class="prompt-group-id">/ Group 07 · Material Details</div><h3 class="prompt-group-name">Material <em>details</em></h3></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">33 · Hanging copper pan</span><span class="prompt-card-id">EC-MD-01</span></div><div class="prompt-card-body">Hand-hammered copper kitchen pan hanging from a dark wood beam, deep patina visible, side light from camera right, ash-white wall background, intimate detail composition, no hands, no people, medium format film, Mamiya 7, Portra 400, sharp foreground texture, soft background <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">34 · Folded linen</span><span class="prompt-card-id">EC-MD-02</span></div><div class="prompt-card-body">Stack of folded slubbed natural linen on a stone shelf, side light from camera left grazing the texture, ash-white and natural cream palette, no hands, no people, intimate still life, medium format film, Hasselblad, Portra 400, sharp foreground texture <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">35 · Ceramic stack</span><span class="prompt-card-id">EC-MD-03</span></div><div class="prompt-card-body">Stack of three hand-thrown ceramic plates with visible throwing rings catching side light from camera left, dark wood surface, deep earth and cream palette, no hands, intimate detail composition, medium format film, Mamiya 7, Portra 400, sharp foreground texture <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">36 · Wooden key fob</span><span class="prompt-card-id">EC-MD-04</span></div><div class="prompt-card-body">Wooden key fob with a hand-stamped number on a leather cord, resting on dark wood, side light from camera left, deep brown and terracotta palette, no hands, no logos, intimate object still life, medium format film, Hasselblad, Portra 400, slight grain, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+    </div>
+
+    <div class="prompt-group">
+      <div class="prompt-group-head"><div class="prompt-group-id">/ Group 08 · People Through Work</div><h3 class="prompt-group-name">People <em>through work</em></h3></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">37 · Farmer's hands, cherries</span><span class="prompt-card-id">EC-PW-01</span></div><div class="prompt-card-body">Weathered farmer hands cupped holding fresh red coffee cherries, no face visible, side light from camera left, deep red cherries against ash-brown skin and dark earth background, candid documentary, medium format film, Mamiya 7, Portra 400, slight grain, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">38 · Cook kneading masa</span><span class="prompt-card-id">EC-PW-02</span></div><div class="prompt-card-body">Cook hands kneading masa dough on a wooden surface, masa flour dusting the forearm, no face visible, side light from camera left, warm cream and dark wood palette, candid observed work moment, medium format film, Mamiya 7, Portra 400, slight grain <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">39 · Gardener pruning</span><span class="prompt-card-id">EC-PW-03</span></div><div class="prompt-card-body">Gardener hand resting on a coffee plant, hand-forged pruning shears in the other hand, no face visible, dappled morning light, deep green foliage and ash-brown skin, candid observed moment, medium format film, Hasselblad, Portra 400, shallow depth of field <span class="pf">--ar 4:5 --style raw --stylize 200 --v 7</span></div></div>
+
+      <div class="prompt-card"><div class="prompt-card-head"><span class="prompt-card-name">40 · Two figures walking</span><span class="prompt-card-id">EC-PW-04</span></div><div class="prompt-card-body">Two distant figures walking a stone path through a coffee field, backs to camera, late afternoon side light, long shadows trailing, deep green and terracotta palette, observed cinematic distance, no faces visible, medium format film, Mamiya 7, Portra 400, slight grain <span class="pf">--ar 16:9 --style raw --stylize 200 --v 7</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">05 — Video Prompts</div>
+      <h2 class="sec-title">Eight clips. <em>Sora, Runway, Kling.</em></h2>
+    </div>
+    <p class="sec-lead">Short atmospheric loops for hero motion, social, and the website's first scroll. <em>Each clip 4–8 seconds.</em> Camera movement is minimal: slow push, slow tilt, or static observation.</p>
+
+    <div class="video-card">
+      <div class="video-meta">
+        <h4>01 · <em>Mist rolling over coffee field</em></h4>
+        <div class="vmeta"><strong>Use:</strong> Framer homepage hero loop<br><strong>Duration:</strong> 6 seconds<br><strong>Camera:</strong> Static, no movement<br><strong>Aspect:</strong> 16:9</div>
+        <p class="vuse">The first thing a guest sees on the website. The land breathes before the brand speaks.</p>
+      </div>
+      <div class="video-prompt">A coffee plantation in the volcanic highlands of Tepoztlán Mexico at dawn. Low mist slowly drifts left to right across rows of coffee plants. Single-source morning light from camera right creates long ground shadows. Static camera, no zoom, no pan. Cinematic medium format film aesthetic, slight grain, deep earth and muted green palette, observed documentary atmosphere, 6 seconds, no people, no animals</div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-meta">
+        <h4>02 · <em>Steam rising from clay mug</em></h4>
+        <div class="vmeta"><strong>Use:</strong> Coffee section transition<br><strong>Duration:</strong> 5 seconds<br><strong>Camera:</strong> Static, hyper-tight<br><strong>Aspect:</strong> 4:5</div>
+        <p class="vuse">For the coffee experience section, social reels, the moment of arrival in a hotel room.</p>
+      </div>
+      <div class="video-prompt">Extreme close-up of a hand-thrown ceramic mug of café de olla, gentle steam slowly rising and curling. Side light from camera left. Dark wood surface, deep brown and terracotta palette. Static camera, intimate observed moment. Cinematic medium format film aesthetic, slight grain, shallow depth of field, 5 seconds, no hands, no people</div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-meta">
+        <h4>03 · <em>Hands sorting cherries</em></h4>
+        <div class="vmeta"><strong>Use:</strong> "Meet the farmers" section<br><strong>Duration:</strong> 8 seconds<br><strong>Camera:</strong> Static observation<br><strong>Aspect:</strong> 4:5 or 9:16</div>
+        <p class="vuse">For the page that introduces the coffee pilgrimage. Slow, intentional, no narration needed.</p>
+      </div>
+      <div class="video-prompt">Weathered farmer hands sorting fresh red coffee cherries on a dark wood table. No face visible. Hands move slowly and deliberately, separating ripe from unripe. Side light from camera left. Cinematic medium format film aesthetic, slight grain, deep red cherries against ash-brown skin, candid documentary observation, 8 seconds</div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-meta">
+        <h4>04 · <em>Pool surface, golden hour</em></h4>
+        <div class="vmeta"><strong>Use:</strong> Lifestyle / amenities loop<br><strong>Duration:</strong> 6 seconds<br><strong>Camera:</strong> Slow push-in<br><strong>Aspect:</strong> 16:9</div>
+        <p class="vuse">The "slow living" promise. Empty water at the magic hour speaks louder than a swimmer ever could.</p>
+      </div>
+      <div class="video-prompt">Pool surface at golden hour reflecting surrounding stone and sky. Subtle water ripples. Slow push-in toward a single rolled linen towel on the stone edge. Deep amber light, warm earth palette. Cinematic medium format film aesthetic, slight grain, 6 seconds, no swimmer, no people</div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-meta">
+        <h4>05 · <em>Candle flicker, mezcal</em></h4>
+        <div class="vmeta"><strong>Use:</strong> Evening / dinner section<br><strong>Duration:</strong> 5 seconds<br><strong>Camera:</strong> Static<br><strong>Aspect:</strong> 4:5</div>
+        <p class="vuse">For the restaurant section. The evening mood, the mezcal ritual.</p>
+      </div>
+      <div class="video-prompt">Clay copita of mezcal with sal de gusano and orange beside it. A single candle flame flickers gently from camera right, casting moving warm light across the still composition. Dark wood table, deep amber palette. Static camera. Cinematic medium format film aesthetic, slight grain, 5 seconds, no hands, no people</div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-meta">
+        <h4>06 · <em>Wooden door opening</em></h4>
+        <div class="vmeta"><strong>Use:</strong> Room reveal / arrival<br><strong>Duration:</strong> 7 seconds<br><strong>Camera:</strong> Static, door is the motion<br><strong>Aspect:</strong> 4:5</div>
+        <p class="vuse">For the room page. The first moment of arrival in a private space.</p>
+      </div>
+      <div class="video-prompt">An aged wooden hacienda door with hand-forged iron hinges slowly opens, revealing a softly-lit room interior beyond with ash-white linen bed and stone walls. Side light spills out as the door opens. Static camera, the door is the only motion. Cinematic medium format film aesthetic, slight grain, deep brown and warm cream palette, 7 seconds, no people</div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-meta">
+        <h4>07 · <em>Espresso pour, copper</em></h4>
+        <div class="vmeta"><strong>Use:</strong> Coffee bar / café section<br><strong>Duration:</strong> 5 seconds<br><strong>Camera:</strong> Static<br><strong>Aspect:</strong> 4:5</div>
+        <p class="vuse">For the in-house café content. The craft made visible.</p>
+      </div>
+      <div class="video-prompt">Espresso pouring slowly from a hand-hammered copper portafilter into a small hand-thrown ceramic cup. Crema forming on the surface. Side light from camera left. Dark wood counter, copper and deep brown palette. Static camera. Cinematic medium format film aesthetic, slight grain, 5 seconds, no hands visible in frame</div>
+    </div>
+
+    <div class="video-card">
+      <div class="video-meta">
+        <h4>08 · <em>Two figures walking field</em></h4>
+        <div class="vmeta"><strong>Use:</strong> Closing scene / about page<br><strong>Duration:</strong> 8 seconds<br><strong>Camera:</strong> Static wide<br><strong>Aspect:</strong> 16:9</div>
+        <p class="vuse">For the about / philosophy page closing. The land continues without us.</p>
+      </div>
+      <div class="video-prompt">Two distant figures walking slowly along a stone path through a coffee field, backs to camera, never turning. Late afternoon side light, long shadows trailing behind them. Static wide camera. Cinematic medium format film aesthetic, deep green and terracotta palette, slight grain, observed cinematic distance, 8 seconds, no faces visible</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">06 — Graphic Prompts</div>
+      <h2 class="sec-title">Twelve graphics. <em>Kittl, Affinity.</em></h2>
+    </div>
+    <p class="sec-lead">Brand graphics that live <em>alongside</em> the photography — signage, packaging, stamps, seals. Not photographic. <em>Drawn, engraved, stamped.</em> The Archivo Black wordmark lineage carries here.</p>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">01 · <em>Coffee bag label, hand-stamped</em></div><div class="kittl-meta"><strong>Output</strong>500×700px vector<br>Print + digital</div></div><div class="kittl-body">Vintage coffee bag label design, hand-stamped letterpress aesthetic, "ESTANCIA CAFETERA" in chunky condensed sans serif at top, "Café de altura — Tepoztlán, Morelos" centered below in serif italic, "Established 1924" stamp at bottom, ink-bleed texture, deep brown ink on natural canvas background, no decorative ornaments, restrained typographic layout</div></div>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">02 · <em>Room key fob — wooden, stamped</em></div><div class="kittl-meta"><strong>Output</strong>200×80mm mockup<br>Production spec</div></div><div class="kittl-body">Wooden key fob mockup, dark stained wood rectangle 60×40mm, single large numeral "04" stamped in deep ink at center using chunky geometric sans serif, "Casa Higuera" engraved below in small caps, leather cord through hole at top, hand-stamped imperfect inking</div></div>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">03 · <em>Entrance signage, cast iron</em></div><div class="kittl-meta"><strong>Output</strong>800×400mm mockup<br>Fabrication ref</div></div><div class="kittl-body">Cast iron entrance signage mockup mounted on aged volcanic stone wall, "ESTANCIA CAFETERA" in chunky condensed geometric sans serif, single line, no ornament, surface patina visible, raking afternoon light from camera left, no logos or decorative elements, hand-cast imperfect edges</div></div>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">04 · <em>Menu cover, letterpressed</em></div><div class="kittl-meta"><strong>Output</strong>A5 print spec<br>Cardstock mockup</div></div><div class="kittl-body">Letterpressed menu cover on heavyweight natural cardstock, "DESAYUNO" in chunky geometric sans serif at top center with ink-bleed texture, copper foil hairline divider below, single italic line "— Tepoztlán, Morelos —" centered, generous negative space, deep ink impression visible</div></div>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">05 · <em>Coffee bag stamp, circular</em></div><div class="kittl-meta"><strong>Output</strong>200×200px stamp<br>Reusable seal</div></div><div class="kittl-body">Circular hand-stamped seal design, outer ring "ESTANCIA CAFETERA · TEPOZTLÁN · MORELOS" in small caps mono spacing, center single coffee cherry or volcanic mountain icon, deep ink-bleed texture on natural cream background, no decorative borders, restrained traditional Mexican estate seal aesthetic</div></div>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">06 · <em>Wayfinding signage system</em></div><div class="kittl-meta"><strong>Output</strong>3-piece spec sheet<br>Production ready</div></div><div class="kittl-body">Three-piece wayfinding signage spec: directional arrow plate, room number plate, restaurant plate. All in dark cast iron with deep-stamped chunky geometric sans serif, mounted on volcanic stone walls. No icons except minimal directional arrows. "RESTAURANTE", "RECEPCIÓN", "HABITACIONES 01–10" — Spanish only, no English duplication</div></div>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">07 · <em>Leave-behind card</em></div><div class="kittl-meta"><strong>Output</strong>4×6" letterpress<br>Production spec</div></div><div class="kittl-body">Letterpressed thank-you card on heavyweight natural cardstock, "Gracias por la visita." centered in serif italic, ESTANCIA CAFETERA wordmark stamped at bottom in chunky geometric sans serif with ink-bleed texture, single copper foil hairline above signature, generous negative space, deep impression visible</div></div>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">08 · <em>Coffee origin map, drawn</em></div><div class="kittl-meta"><strong>Output</strong>A4 illustration<br>For guest journal</div></div><div class="kittl-body">Hand-drawn topographic map of the Estancia Cafetera coffee fields and surrounding Tepoztlán terrain, deep brown ink on natural cream paper, single elevation contour lines, hand-lettered place names in italic serif, no color, no satellite imagery aesthetic, traditional cartographic style from 1920s estate records</div></div>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">09 · <em>Door numeral plates 01–10</em></div><div class="kittl-meta"><strong>Output</strong>10-piece set spec<br>Cast metal</div></div><div class="kittl-body">Set of ten door numeral plates 01 through 10, cast iron with deep-stamped chunky geometric sans serif numerals, square format 100×100mm, single copper inlay hairline below each numeral, room name below in small caps serif, hand-cast imperfect edges, dark patina finish</div></div>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">10 · <em>Service stamp set</em></div><div class="kittl-meta"><strong>Output</strong>5 stamps<br>Letterpress block ref</div></div><div class="kittl-body">Set of five physical letterpress stamps for the estate's daily use: ARRIVED, DEPARTED, PAID, CONFIRMED, RESERVED. Chunky geometric sans serif lettering with deep ink-bleed when stamped, vintage Mexican estate ledger aesthetic, no decorative borders, single weight stroke</div></div>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">11 · <em>Coffee tasting card</em></div><div class="kittl-meta"><strong>Output</strong>3×5" letterpress<br>Per-stay print</div></div><div class="kittl-body">Letterpressed coffee tasting card on heavyweight cardstock, header "Café del día" in chunky sans serif with ink-bleed, three columns below: "Varietal", "Process", "Notas" in mono caps, generous negative space for handwritten entry, single copper foil hairline divider, dated stamp area at bottom</div></div>
+
+    <div class="kittl-card"><div class="kittl-card-head"><div class="kittl-name">12 · <em>Signature stationery</em></div><div class="kittl-meta"><strong>Output</strong>Letterhead spec<br>Print production</div></div><div class="kittl-body">Letterpressed letterhead on heavyweight natural cream stock, ESTANCIA CAFETERA wordmark in chunky geometric sans serif top-left with ink-bleed texture, address block in small mono caps top-right, deep ink impression visible, no logos, no decorative elements, restrained editorial layout following the brand's typographic discipline</div></div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">07 — The Curation</div>
+      <h2 class="sec-title">Choosing what <em>stays.</em></h2>
+    </div>
+    <p class="sec-lead">Midjourney will give you four options per prompt. <em>You'll be tempted to pick the prettiest.</em> Don't. Pick the most true — the one that looks observed, not produced.</p>
+
+    <div class="curation-grid">
+      <div class="curation-col keep">
+        <h4>— Keep when</h4>
+        <ul>
+          <li>The light direction matches the prompt — single source, side</li>
+          <li>The texture is visible at the foreground edge</li>
+          <li>Hands appear without faces — work made visible</li>
+          <li>The palette stays inside the warm earth family</li>
+          <li>The composition has real negative space</li>
+          <li>It looks like a moment caught, not a moment posed</li>
+        </ul>
+      </div>
+      <div class="curation-col kill">
+        <h4>— Kill when</h4>
+        <ul>
+          <li>The image has invented decorative objects — fake plants, ornamental serving ware</li>
+          <li>The lighting is symmetric — front fill, no shadow</li>
+          <li>A face is visible to camera, even in soft focus</li>
+          <li>The colors include neon, pure white, or saturated primaries</li>
+          <li>The composition is centered, brochure-like</li>
+          <li>It looks like a Pinterest mood board, not a hotel</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">08 — Production Plan</div>
+      <h2 class="sec-title">The <em>order</em> matters.</h2>
+    </div>
+    <p class="sec-lead">Generate in this order to build a consistent library, not a scattered one. Each phase establishes the visual language the next phase inherits. <em>Don't skip ahead.</em></p>
+
+    <div class="phase">
+      <div class="phase-num">01</div>
+      <div class="phase-body"><h4>Landscape <em>first</em></h4><p>Generate Group 01 (6 prompts). This establishes the brand's atmospheric baseline — color temperature, light quality, grain. Every subsequent image references back to these.</p></div>
+      <div class="phase-meta"><strong>Output:</strong> 6 images<br><strong>Time:</strong> 1–2 hours<br><strong>Spend:</strong> ~30 credits</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">02</div>
+      <div class="phase-body"><h4>Architecture <em>second</em></h4><p>Generate Group 02 (6 prompts). With the landscape mood locked, the interior shots can match. Stone, wood, copper, linen — the material palette becomes consistent.</p></div>
+      <div class="phase-meta"><strong>Output:</strong> 6 images<br><strong>Time:</strong> 1–2 hours<br><strong>Spend:</strong> ~30 credits</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">03</div>
+      <div class="phase-body"><h4>Material <em>details</em></h4><p>Generate Group 07 (4 prompts). These tighter compositions inherit the palette from Phase 02 and become reusable across surface mockups, social, and the website's transition moments.</p></div>
+      <div class="phase-meta"><strong>Output:</strong> 4 images<br><strong>Time:</strong> 1 hour<br><strong>Spend:</strong> ~20 credits</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">04</div>
+      <div class="phase-body"><h4>Coffee <em>experience</em></h4><p>Generate Group 03 (6 prompts). The core brand story — from cherry to cup. These will be the most-used images in the library. Prioritize getting two or three exceptional ones over six average ones.</p></div>
+      <div class="phase-meta"><strong>Output:</strong> 6 images<br><strong>Time:</strong> 2–3 hours<br><strong>Spend:</strong> ~40 credits</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">05</div>
+      <div class="phase-body"><h4>Culinary <em>& drinks</em></h4><p>Generate Groups 04 + 05 (10 prompts). Mexican plates, breakfast scenes, drinks. Food is where Midjourney is most likely to invent decorative kitsch — curate hard, kill aggressively.</p></div>
+      <div class="phase-meta"><strong>Output:</strong> 10 images<br><strong>Time:</strong> 3–4 hours<br><strong>Spend:</strong> ~60 credits</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">06</div>
+      <div class="phase-body"><h4>People <em>through work</em></h4><p>Generate Group 08 (4 prompts). Hands at work, no faces. v7 handles this well but watch for invented jewelry, watches, or distracting tattoos. Re-prompt if anything performs.</p></div>
+      <div class="phase-meta"><strong>Output:</strong> 4 images<br><strong>Time:</strong> 1–2 hours<br><strong>Spend:</strong> ~30 credits</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">07</div>
+      <div class="phase-body"><h4>Lifestyle <em>last</em></h4><p>Generate Group 06 (4 prompts). These are the hardest because lifestyle is where AI most wants to add staged "wellness" energy. Lean toward empty hammocks and observed details, away from people-in-poses.</p></div>
+      <div class="phase-meta"><strong>Output:</strong> 4 images<br><strong>Time:</strong> 2 hours<br><strong>Spend:</strong> ~30 credits</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">08</div>
+      <div class="phase-body"><h4>Video <em>& graphics</em></h4><p>Once the still library is complete, move to Section 05 (Sora video prompts) and Section 06 (Kittl graphics). The videos extend the still moments; the graphics live alongside.</p></div>
+      <div class="phase-meta"><strong>Output:</strong> 8 clips + 12 graphics<br><strong>Time:</strong> 4–6 hours<br><strong>Spend:</strong> ~150 credits</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="mark">Estancia Cafetera</div>
+    <div class="meta">
+      Sprint 4 · Image Direction Brief<br>
+      40 prompts · 8 videos · 12 graphics<br>
+      Ready for Midjourney v7 production
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

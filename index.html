@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estancia Cafetera — Brand System v4 · FINAL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     ESTANCIA CAFETERA — BRAND SYSTEM v4 · FINAL
+     ============================================================
+     Direction taken from reference:
+     • Dark coffee brown base throughout
+     • No left label column — section number top-left, big headline
+     • Image Direction as visual mood tiles
+     • Surfaces as taxonomy grid (not mockup demos)
+     • One direction. Both surfaces.
+     ============================================================ */
+
+  :root {
+    /* PRIMARY · Brief-locked */
+    --obsidian:   #1A1814;
+    --ash:        #E8E4DC;
+    --copper:     #B87333;
+
+    /* DARK BASE — the document's surface */
+    --bg:         #2E1F15;
+    --bg-deep:    #1F1410;
+    --bg-lift:    #3A2818;
+
+    /* WARM CLAY (kept for accent moments) */
+    --terracotta-light: #E9D3C1;
+    --terracotta-deep:  #B8704A;
+
+    /* SECONDARY · Brief-locked */
+    --green-deep: #2C3E2D;
+    --green-moss: #4A5D3D;
+    --fog:        #C4BDB0;
+    --cream:      #F5F0E8;
+
+    /* EARTH */
+    --clay-dark:  #2E1F15;
+    --terra:      #4A2E1F;
+    --adobe:      #6B3D24;
+    --ember:      #C26A2C;
+
+    /* SEMANTIC for dark base */
+    --ink:         var(--ash);
+    --ink-soft:    #B8A88E;
+    --ink-faint:   #8A7B63;
+    --rule:        rgba(232, 228, 220, 0.1);
+    --rule-soft:   rgba(232, 228, 220, 0.05);
+    --accent:      var(--ember);
+    --accent-deep: var(--terracotta-deep);
+
+    /* TYPE SCALE */
+    --t-mono:     11px;
+    --t-body:     15px;
+    --t-lede:     20px;
+    --t-h4:       28px;
+    --t-h3:       40px;
+    --t-h2:       72px;
+    --t-h1:       96px;
+
+    /* SPACING · 8pt */
+    --s-1: 4px;  --s-2: 8px;  --s-3: 16px;  --s-4: 24px;
+    --s-5: 40px; --s-6: 64px; --s-7: 104px; --s-8: 168px;
+
+    /* TYPEFACES */
+    --font-wordmark:  'Archivo Black', sans-serif;
+    --font-editorial: 'Cormorant Garamond', 'Migra', serif;
+    --font-body:      'Inter', 'Söhne', 'Untitled Sans', -apple-system, sans-serif;
+    --font-mono:      'DM Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: var(--t-body);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.85  0 0 0 0 0.78  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 var(--s-6);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ============================================================
+     MASTHEAD
+     ============================================================ */
+  .masthead {
+    padding: var(--s-8) 0 var(--s-7);
+    border-bottom: 1px solid var(--rule);
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: var(--s-7);
+  }
+  .meta-row span:nth-child(2) { color: var(--accent); }
+
+  .brand-name {
+    font-family: var(--font-wordmark);
+    font-weight: 900;
+    font-size: clamp(56px, 11vw, 168px);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--ink);
+    filter: url(#ink-bleed);
+    margin-bottom: var(--s-6);
+    display: block;
+  }
+
+  .brand-tag {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: var(--s-7);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--rule-soft);
+  }
+  .brand-tag .lede {
+    font-family: var(--font-editorial);
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(20px, 2vw, 26px);
+    color: var(--ink);
+    max-width: 56ch;
+    line-height: 1.45;
+  }
+  .brand-tag .loc {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: right;
+    line-height: 1.9;
+    white-space: nowrap;
+  }
+
+  /* ============================================================
+     SECTION SHELL — reference layout
+     Section number top-left in mono, big headline,
+     content below in full-width grid
+     ============================================================ */
+  section {
+    padding: var(--s-8) 0 var(--s-7);
+    border-bottom: 1px solid var(--rule);
+  }
+  .sec-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--s-5);
+    margin-bottom: var(--s-7);
+    align-items: start;
+  }
+  .sec-num {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding-top: 18px;
+  }
+  .sec-title {
+    font-family: var(--font-editorial);
+    font-weight: 400;
+    font-size: clamp(44px, 5.5vw, 84px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    max-width: 18ch;
+  }
+  .sec-title em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+
+  /* Lead paragraph under the headline */
+  .sec-lead {
+    margin-bottom: var(--s-6);
+    max-width: 64ch;
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(20px, 1.6vw, 24px);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .sec-lead em { color: var(--accent); }
+
+  /* ============================================================
+     01 · PHILOSOPHY
+     ============================================================ */
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--rule-soft);
+  }
+  .principle .num {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: var(--s-4);
+  }
+  .principle h4 {
+    font-family: var(--font-editorial);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.1;
+    margin-bottom: var(--s-3);
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .principle p {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 19px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    max-width: 32ch;
+  }
+
+  /* ============================================================
+     02 · GUESTS
+     ============================================================ */
+  .guests {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--rule);
+    background: var(--bg-deep);
+  }
+  .guest {
+    padding: var(--s-6) var(--s-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    min-height: 400px;
+    border-right: 1px solid var(--rule);
+  }
+  .guest:last-child { border-right: none; }
+  .guest .id {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .guest h4 {
+    font-family: var(--font-editorial);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.05;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .guest .quote {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.4;
+    color: var(--ink);
+    padding: var(--s-4) 0;
+    border-top: 1px solid var(--rule-soft);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .guest p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .guest p strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .guest p em { font-style: italic; color: var(--ink); }
+  .guest .signals {
+    margin-top: auto;
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--rule-soft);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    line-height: 1.9;
+  }
+  .guest .signals strong {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 8px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+
+  .convergence {
+    margin-top: var(--s-6);
+    padding: var(--s-5) var(--s-6);
+    border-left: 2px solid var(--accent);
+  }
+  .convergence h5 {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--s-3);
+  }
+  .convergence p {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(20px, 1.6vw, 24px);
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 72ch;
+  }
+  .convergence p em { color: var(--accent); font-style: italic; }
+
+  /* ============================================================
+     03 · COLOR
+     ============================================================ */
+  .swatch-group {
+    margin-bottom: var(--s-5);
+  }
+  .swatch-group-label {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--s-4);
+  }
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--rule);
+  }
+  .swatch {
+    padding: var(--s-5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 280px;
+    border-right: 1px solid var(--rule);
+  }
+  .swatch:nth-child(3n) { border-right: none; }
+  .swatch .chip {
+    width: 100%;
+    height: 140px;
+    margin-bottom: var(--s-4);
+    border: 1px solid var(--rule);
+  }
+  .swatch .role {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--s-3);
+  }
+  .swatch .name {
+    font-family: var(--font-editorial);
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-bottom: var(--s-2);
+    color: var(--ink);
+  }
+  .swatch .specs {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .never {
+    margin-top: var(--s-5);
+    padding: var(--s-4) var(--s-5);
+    border: 1px solid var(--rule);
+    display: flex;
+    gap: var(--s-5);
+    align-items: baseline;
+  }
+  .never .label {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #d96666;
+    white-space: nowrap;
+  }
+  .never .items {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink);
+    font-size: 22px;
+  }
+
+  /* ============================================================
+     04 · TYPOGRAPHY
+     ============================================================ */
+  .type-spec {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--s-6);
+    padding: var(--s-5) 0;
+    border-bottom: 1px solid var(--rule-soft);
+    align-items: baseline;
+  }
+  .type-spec:last-of-type { border-bottom: none; }
+  .type-spec .label {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+  .type-spec .label .stack {
+    display: block;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: var(--accent);
+    margin-top: var(--s-2);
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 17px;
+  }
+  .type-spec .label .tech {
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+    text-transform: none;
+    display: block;
+    margin-top: var(--s-3);
+    line-height: 1.7;
+  }
+
+  .type-wordmark {
+    font-family: var(--font-wordmark);
+    font-weight: 900;
+    font-size: clamp(56px, 7vw, 88px);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    filter: url(#ink-bleed);
+  }
+  .type-editorial-h1 {
+    font-family: var(--font-editorial);
+    font-weight: 400;
+    font-size: clamp(40px, 4.5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+  .type-editorial-h1 em { font-style: italic; font-weight: 400; color: var(--accent); }
+  .type-lede {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.4;
+    color: var(--ink);
+    max-width: 50ch;
+  }
+  .type-body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 60ch;
+  }
+  .type-mono {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* ============================================================
+     05 · VOICE
+     ============================================================ */
+  .voice-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-5);
+    margin-bottom: var(--s-5);
+  }
+  .voice-block { padding: var(--s-5) var(--s-6); }
+  .voice-block.we { background: var(--bg-deep); border: 1px solid var(--rule); }
+  .voice-block.not { border: 1px dashed var(--rule); opacity: 0.5; }
+  .voice-block .marker {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: var(--s-3);
+  }
+  .voice-block.we .marker { color: var(--accent); }
+  .voice-block.not .marker { color: var(--ink-soft); text-decoration: line-through; }
+  .voice-block p {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(20px, 1.7vw, 26px);
+    line-height: 1.4;
+    color: var(--ink);
+  }
+  .voice-block.not p {
+    font-style: normal;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+
+  /* ============================================================
+     06 · IMAGE DIRECTION — gradient mood tiles + ALWAYS/NEVER
+     ============================================================ */
+  .mood-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s-3);
+    margin-bottom: var(--s-6);
+  }
+  .mood-tile {
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: var(--s-4);
+  }
+  .mood-tile .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    position: relative;
+    z-index: 2;
+  }
+  /* Gradient backgrounds — capturing the *feel* of each mood */
+  .mood-01 { background: radial-gradient(ellipse 80% 80% at 60% 40%, #5a3520 0%, #2a1810 70%, #1a0e08 100%); }
+  .mood-02 { background: radial-gradient(ellipse 100% 80% at 40% 60%, #3a4a30 0%, #1e2a1a 65%, #141c10 100%); }
+  .mood-03 { background: radial-gradient(ellipse 100% 60% at 50% 50%, #c4baa8 0%, #8a8270 70%, #5a5448 100%); }
+  .mood-04 { background: radial-gradient(ellipse 60% 60% at 75% 30%, #d4823e 0%, #6b3d20 60%, #2a180e 100%); }
+  .mood-05 { background: radial-gradient(ellipse 80% 100% at 30% 50%, #3a2818 0%, #1f1410 70%, #100a06 100%); }
+  .mood-06 { background: radial-gradient(ellipse 100% 100% at 50% 50%, #e8dfca 0%, #c4b89a 70%, #8a7e62 100%); }
+  .mood-07 { background: radial-gradient(ellipse 100% 80% at 50% 60%, #2c3e2d 0%, #1a2418 70%, #0e140c 100%); }
+  .mood-08 { background: radial-gradient(ellipse 100% 100% at 60% 50%, #6b3d20 0%, #2c3e2d 50%, #1a1410 100%); }
+
+  /* ALWAYS / NEVER columns */
+  .always-never {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--rule-soft);
+  }
+  .an-col h5 {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: var(--s-4);
+    padding-bottom: var(--s-3);
+    border-bottom: 1px solid var(--rule);
+  }
+  .an-col.always h5 { color: var(--accent); }
+  .an-col.never h5 { color: #d96666; }
+  .an-col ul { list-style: none; padding: 0; }
+  .an-col li {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 1.5;
+    color: var(--ink);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .an-col li:last-child { border-bottom: none; }
+
+  /* ============================================================
+     07 · SURFACES — taxonomy grid (6 cards)
+     ============================================================ */
+  .surface-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--rule);
+    background: var(--bg-deep);
+  }
+  .surface-card {
+    padding: var(--s-6) var(--s-5);
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+  }
+  .surface-card:nth-child(3n) { border-right: none; }
+  .surface-card:nth-last-child(-n+3) { border-bottom: none; }
+  .surface-card .num {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .surface-card h4 {
+    font-family: var(--font-editorial);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1.05;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    margin-bottom: var(--s-2);
+  }
+  .surface-card p {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .surface-card p em {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  /* ============================================================
+     08 · TOKENS
+     ============================================================ */
+  .tokens {
+    background: var(--bg-deep);
+    color: var(--ink);
+    padding: var(--s-6) var(--s-5);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.9;
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+  }
+  .tokens .tk-comment { color: var(--accent); }
+  .tokens .tk-prop { color: var(--terracotta-light); }
+  .tokens .tk-val { color: var(--ink); }
+
+  /* ============================================================
+     SPRINT SUMMARY
+     ============================================================ */
+  .sprint {
+    margin-top: var(--s-7);
+    padding: var(--s-7) var(--s-6);
+    background: var(--bg-deep);
+    border: 1px solid var(--accent);
+    position: relative;
+  }
+  .sprint .sprint-meta {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--s-4);
+  }
+  .sprint h3 {
+    font-family: var(--font-editorial);
+    font-weight: 400;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1.05;
+    margin-bottom: var(--s-6);
+    color: var(--ink);
+    max-width: 18ch;
+    letter-spacing: -0.015em;
+  }
+  .sprint h3 em { color: var(--accent); font-style: italic; }
+  .sprint-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-6);
+  }
+  .sprint-col h4 {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--s-4);
+    padding-bottom: var(--s-3);
+    border-bottom: 1px solid var(--rule);
+  }
+  .sprint-col ul { list-style: none; padding: 0; }
+  .sprint-col li {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule-soft);
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: var(--s-2);
+  }
+  .sprint-col li:last-child { border-bottom: none; }
+  .sprint-col li::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .sprint-col li.pending::before {
+    content: '○';
+    color: var(--ink-faint);
+  }
+  .sprint-col li strong { color: var(--ink); font-weight: 600; }
+  .sprint-close {
+    margin-top: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink);
+    line-height: 1.5;
+    max-width: 72ch;
+  }
+  .sprint-close em { color: var(--accent); font-style: italic; }
+
+  /* FOOTER */
+  footer {
+    padding: var(--s-7) 0 var(--s-8);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-5);
+    align-items: end;
+  }
+  footer .mark {
+    font-family: var(--font-wordmark);
+    font-weight: 900;
+    font-size: 32px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    filter: url(#ink-bleed);
+  }
+  footer .meta {
+    font-family: var(--font-mono);
+    font-size: var(--t-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: right;
+    line-height: 1.9;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1000px) {
+    .sec-head { grid-template-columns: 1fr; gap: var(--s-3); }
+    .principles, .guests, .swatches, .voice-pair, .surface-grid, .sprint-grid, .always-never {
+      grid-template-columns: 1fr;
+    }
+    .mood-grid { grid-template-columns: repeat(2, 1fr); }
+    .type-spec { grid-template-columns: 1fr; gap: var(--s-3); }
+    .guest, .swatch, .surface-card { border-right: none; }
+    footer { grid-template-columns: 1fr; }
+    footer .meta { text-align: left; }
+    .brand-tag { grid-template-columns: 1fr; gap: var(--s-4); }
+    .brand-tag .loc { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG FILTER · ink bleed for wordmark -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="ink-bleed">
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+    <feGaussianBlur in="displaced" stdDeviation="0.3" result="blurred"/>
+    <feComponentTransfer in="blurred">
+      <feFuncA type="linear" slope="1.4" intercept="-0.1"/>
+    </feComponentTransfer>
+  </filter>
+</svg>
+
+<div class="wrap">
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <div class="meta-row">
+      <span>Brand System · v4 · FINAL</span>
+      <span>Archivo Black · Migra · Söhne · DM Mono</span>
+      <span>22 · 05 · 2026</span>
+    </div>
+    <h1 class="brand-name">Estancia Cafetera</h1>
+    <div class="brand-tag">
+      <p class="lede">A 100-year-old coffee estate in the volcanic highlands of Tepoztlán. Ten rooms. One restaurant. A working farm that became a hotel because the owners refused to let the land stop being used with intention.</p>
+      <p class="loc">Tepoztlán<br>Morelos · México<br>↑ 1,701 m</p>
+    </div>
+  </header>
+
+
+  <!-- 01 · PHILOSOPHY -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">01 — Philosophy</div>
+      <h2 class="sec-title">Volcanic <em>restraint.</em></h2>
+    </div>
+    <p class="sec-lead">The brand doesn't announce itself. It <em>reveals</em> itself slowly — through the weight of the paper, the temperature of the palette, the precision of the type.</p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="num">/ 01</div>
+        <h4>Borrow from the land</h4>
+        <p>Obsidian, ash, copper, deep green, terracotta. The palette comes from what the volcano left behind, not from a trend report.</p>
+      </div>
+      <div class="principle">
+        <div class="num">/ 02</div>
+        <h4>Borrow from the craft</h4>
+        <p>Hand-stamped, imperfect, intentional. The seams show because they were meant to.</p>
+      </div>
+      <div class="principle">
+        <div class="num">/ 03</div>
+        <h4>Premium through patience</h4>
+        <p>Not premium because of polish. Premium because nothing was rushed — including the silence between elements.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 02 · GUESTS -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">02 — The Guest</div>
+      <h2 class="sec-title">Three <em>profiles.</em> One brand.</h2>
+    </div>
+    <p class="sec-lead">Different motivations. Same standard. All three converge on what the brand <em>refuses</em> to be — performed at, themed up, or polished smooth.</p>
+
+    <div class="guests">
+      <div class="guest">
+        <div class="id">/ Guest 01</div>
+        <h4>The Coffee Pilgrim</h4>
+        <p class="quote">"I came for the varietal. I stayed for the people who grow it."</p>
+        <p>Single-origin obsessive. Treats the estate as a destination, not an amenity. Knows the difference between washed and natural processing. Wants to <strong>meet the farmers</strong>, see the drying patios, understand this hillside's terroir.</p>
+        <div class="signals">
+          <strong>— What they look for</strong>
+          Varietal transparency<br>Farmer access<br>Tasting protocols<br>Process education
+        </div>
+      </div>
+      <div class="guest">
+        <div class="id">/ Guest 02</div>
+        <h4>The Heritage Heir</h4>
+        <p class="quote">"My grandparents had a hacienda. I'm looking for the real thing, not the costume."</p>
+        <p>Mexican or Mexican-American with ancestral ties to <em>campo</em> life. Speaks Spanish at home. Knows when something is <strong>authentic vs. themed</strong>. Pays for cultural fluency, refuses theatre.</p>
+        <div class="signals">
+          <strong>— What they look for</strong>
+          Real regional Spanish<br>No costume, no kitsch<br>Generational depth<br>Local sourcing visible
+        </div>
+      </div>
+      <div class="guest">
+        <div class="id">/ Guest 03</div>
+        <h4>The Aesthete</h4>
+        <p class="quote">"Texture over comfort. I'd rather feel something than be pampered."</p>
+        <p>Creative director, architect, brand founder. 32–48. Travels for material experience, not luxury benchmarks. Will pay <strong>$500/night without hesitation</strong> if the experience earns it.</p>
+        <div class="signals">
+          <strong>— What they look for</strong>
+          Intentional restraint<br>Material honesty<br>No performative luxury<br>Editorial-worthy moments
+        </div>
+      </div>
+    </div>
+
+    <div class="convergence">
+      <h5>— Where all three converge —</h5>
+      <p>None of these guests want to be performed at. All three reward <em>quiet expertise</em>, <em>cultural fluency without theatre</em>, and <em>intentional restraint</em>. The brand doesn't have to choose between them — it has to be true to all three simultaneously, which is the same thing as being true to the place itself.</p>
+    </div>
+  </section>
+
+
+  <!-- 03 · COLOR -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">03 — Color</div>
+      <h2 class="sec-title">The palette is <em>temperature.</em></h2>
+    </div>
+    <p class="sec-lead">Twelve colors across three families. Earth is the surface, warm clay is the warmth, copper and ember are the accents that <em>live</em>.</p>
+
+    <div class="swatch-group">
+      <div class="swatch-group-label">— Primary —</div>
+      <div class="swatches">
+        <div class="swatch">
+          <div><div class="role">Primary / 01</div><div class="chip" style="background: var(--obsidian)"></div><div class="name">Obsidian</div></div>
+          <div class="specs"><span>#1A1814</span><span>Ink</span></div>
+        </div>
+        <div class="swatch">
+          <div><div class="role">Primary / 02</div><div class="chip" style="background: var(--ash)"></div><div class="name">Ash</div></div>
+          <div class="specs"><span>#E8E4DC</span><span>Text on dark</span></div>
+        </div>
+        <div class="swatch">
+          <div><div class="role">Primary / 03 · Accent</div><div class="chip" style="background: var(--copper)"></div><div class="name">Copper</div></div>
+          <div class="specs"><span>#B87333</span><span>Hairline</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatch-group">
+      <div class="swatch-group-label">— Warm Clay Family —</div>
+      <div class="swatches">
+        <div class="swatch">
+          <div><div class="role">Surface / Light</div><div class="chip" style="background: var(--terracotta-light)"></div><div class="name">Terracotta Light</div></div>
+          <div class="specs"><span>#E9D3C1</span><span>Light surfaces</span></div>
+        </div>
+        <div class="swatch">
+          <div><div class="role">Accent / Warm</div><div class="chip" style="background: var(--terracotta-deep)"></div><div class="name">Terracotta Deep</div></div>
+          <div class="specs"><span>#B8704A</span><span>Type accent</span></div>
+        </div>
+        <div class="swatch">
+          <div><div class="role">Accent / Firelight</div><div class="chip" style="background: var(--ember)"></div><div class="name">Ember</div></div>
+          <div class="specs"><span>#C26A2C</span><span>Numerals · CTA</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="swatch-group">
+      <div class="swatch-group-label">— Secondary & Earth —</div>
+      <div class="swatches">
+        <div class="swatch">
+          <div><div class="role">Secondary / 04</div><div class="chip" style="background: var(--green-deep)"></div><div class="name">Deep Green</div></div>
+          <div class="specs"><span>#2C3E2D</span><span>Foliage accent</span></div>
+        </div>
+        <div class="swatch">
+          <div><div class="role">Secondary / 05</div><div class="chip" style="background: var(--fog)"></div><div class="name">Fog</div></div>
+          <div class="specs"><span>#C4BDB0</span><span>Soft ink</span></div>
+        </div>
+        <div class="swatch">
+          <div><div class="role">Earth / Surface</div><div class="chip" style="background: var(--clay-dark)"></div><div class="name">Clay Dark</div></div>
+          <div class="specs"><span>#2E1F15</span><span>Document base</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="never">
+      <div class="label">Never</div>
+      <div class="items">Bright white. Pure black. Corporate blue. Orange.</div>
+    </div>
+  </section>
+
+
+  <!-- 04 · TYPOGRAPHY -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">04 — Typography</div>
+      <h2 class="sec-title">Four faces. <em>Clear jobs.</em></h2>
+    </div>
+    <p class="sec-lead">The wordmark <em>stamps</em>. The editorial <em>narrates</em>. The body <em>serves</em>. The mono <em>marks</em>.</p>
+
+    <div class="type-spec">
+      <div class="label">
+        Wordmark / Identity<br>
+        <span class="stack">Archivo Black + Ink Filter</span>
+        <span class="tech">— The name itself<br>— Signage, room numbers<br>— Coffee bag, leather tags<br>—<br>Free · Google Fonts<br>SVG ink filter applied</span>
+      </div>
+      <div><p class="type-wordmark">Estancia Cafetera</p></div>
+    </div>
+
+    <div class="type-spec">
+      <div class="label">
+        Editorial / Display<br>
+        <span class="stack">Migra · Light + Light Italic</span>
+        <span class="tech">— Section headlines<br>— Pull-quotes, ledes<br>— Website article headers<br>—<br>Pangram Pangram · $40+/weight<br>Rendered here as Cormorant Garamond</span>
+      </div>
+      <div><p class="type-editorial-h1">Ten rooms. One restaurant. <em>One hundred years.</em></p></div>
+    </div>
+
+    <div class="type-spec">
+      <div class="label">Editorial · Lede<br><span class="stack">Migra Light Italic</span><span class="tech">— Pull-quotes and ledes<br>— 22–26pt</span></div>
+      <div><p class="type-lede">Guests come from Mexico City and New York. They come to slow down without giving up precision.</p></div>
+    </div>
+
+    <div class="type-spec">
+      <div class="label">
+        Body<br>
+        <span class="stack">Söhne / Untitled Sans</span>
+        <span class="tech">— All reading copy<br>— Booking flow, guest portal<br>—<br>Klim Type Foundry · paid<br>Rendered here as Inter (90% match · free)<br>15–16px · 1.65 leading</span>
+      </div>
+      <div><p class="type-body">Every surface carries the weight of the place. Volcanic stone underfoot. Hand-thrown ceramics on the tables. Copper in the kitchen, dark wood in the corridors, morning mist on the windows before the staff has finished setting service.</p></div>
+    </div>
+
+    <div class="type-spec">
+      <div class="label">
+        Mono · Detail<br>
+        <span class="stack">DM Mono</span>
+        <span class="tech">— Labels, metadata<br>— Room codes, dates<br>—<br>Free · Google Fonts<br>11–13px · +0.14em tracking</span>
+      </div>
+      <div><p class="type-mono">Room 04 · Casa Higuera · North-facing · 14.06 — 16.06</p></div>
+    </div>
+  </section>
+
+
+  <!-- 05 · VOICE -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">05 — Voice</div>
+      <h2 class="sec-title">Specific, slow, <em>understated.</em></h2>
+    </div>
+    <p class="sec-lead">The voice matches the typography: quiet, precise, literary — <em>never decorative</em>. We say what is true and stop talking.</p>
+
+    <div class="voice-pair">
+      <div class="voice-block we">
+        <div class="marker">— We say</div>
+        <p>"The coffee was planted in 1924. The rooms came later."</p>
+      </div>
+      <div class="voice-block not">
+        <div class="marker">We don't</div>
+        <p>"Welcome to our luxurious historic boutique hotel experience!"</p>
+      </div>
+    </div>
+    <div class="voice-pair">
+      <div class="voice-block we">
+        <div class="marker">— We say</div>
+        <p>"Breakfast is at the time the kitchen is ready. Usually by seven."</p>
+      </div>
+      <div class="voice-block not">
+        <div class="marker">We don't</div>
+        <p>"Enjoy our gourmet breakfast served daily from 7:00 AM to 10:00 AM."</p>
+      </div>
+    </div>
+    <div class="voice-pair">
+      <div class="voice-block we">
+        <div class="marker">— We say</div>
+        <p>"Ten rooms. No two are alike. None are accidental."</p>
+      </div>
+      <div class="voice-block not">
+        <div class="marker">We don't</div>
+        <p>"Choose from our 10 beautifully designed unique accommodations!"</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 06 · IMAGE DIRECTION -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">06 — Image Direction</div>
+      <h2 class="sec-title">Matter, not <em>moment.</em></h2>
+    </div>
+    <p class="sec-lead">For commissioned photography <em>and</em> AI image briefs. One direction. Both surfaces. The image should feel observed, not produced.</p>
+
+    <div class="mood-grid">
+      <div class="mood-tile mood-01"><span class="label">01 · Volcanic Stone, Morning</span></div>
+      <div class="mood-tile mood-02"><span class="label">02 · Coffee Plant, Low Light</span></div>
+      <div class="mood-tile mood-03"><span class="label">03 · Mist Over Field</span></div>
+      <div class="mood-tile mood-04"><span class="label">04 · Copper, Candlelit</span></div>
+      <div class="mood-tile mood-05"><span class="label">05 · Dark Wood Interior</span></div>
+      <div class="mood-tile mood-06"><span class="label">06 · Hand-thrown Ceramic</span></div>
+      <div class="mood-tile mood-07"><span class="label">07 · Highland, Dawn</span></div>
+      <div class="mood-tile mood-08"><span class="label">08 · Stone × Foliage</span></div>
+    </div>
+
+    <div class="always-never">
+      <div class="an-col always">
+        <h5>— Always</h5>
+        <ul>
+          <li>Natural light, single source</li>
+          <li>The hour before or after sunrise</li>
+          <li>Texture in the foreground</li>
+          <li>Negative space — let the mist do the work</li>
+          <li>Hands present, faces rarely</li>
+          <li>Medium-format film feel, slight grain</li>
+        </ul>
+      </div>
+      <div class="an-col never">
+        <h5>— Never</h5>
+        <ul>
+          <li>Wide grins, posed groups</li>
+          <li>HDR, lifted shadows, saturated skies</li>
+          <li>Drone shots without intention</li>
+          <li>Stock-style "lifestyle" framing</li>
+          <li>Logos, signage, modern technology visible</li>
+          <li>Fanned-out fruit on linen</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 07 · SURFACES -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">07 — Surfaces</div>
+      <h2 class="sec-title">One system. Multiple <em>surfaces.</em></h2>
+    </div>
+    <p class="sec-lead">What the tokens power. The proof this is a system, not a mood board.</p>
+
+    <div class="surface-grid">
+      <div class="surface-card">
+        <div class="num">SURFACE / 01</div>
+        <h4>Framer Site</h4>
+        <p>Public-facing. Editorial pacing. Type-led. Hero is the name, set in display. Tokens import directly as variables.</p>
+      </div>
+      <div class="surface-card">
+        <div class="num">SURFACE / 02</div>
+        <h4>Guest Portal</h4>
+        <p>Pre-arrival and in-stay. Mono labels, display headings, restrained UI. The brand doesn't leave when you book.</p>
+      </div>
+      <div class="surface-card">
+        <div class="num">SURFACE / 03</div>
+        <h4>Print Collateral</h4>
+        <p>Heavyweight stock. Letterpress where possible. Copper foil on the menu. Hand-stamped room numbers.</p>
+      </div>
+      <div class="surface-card">
+        <div class="num">SURFACE / 04</div>
+        <h4>AI Image Brief</h4>
+        <p>Section 06 <em>is</em> the brief. Palette, light direction, subject hierarchy — all token-bound, all consistent.</p>
+      </div>
+      <div class="surface-card">
+        <div class="num">SURFACE / 05</div>
+        <h4>Physical Touchpoints</h4>
+        <p>Door tags, key cards, restaurant menu, breakfast card, leave-behinds. The system on paper, ceramic, wood.</p>
+      </div>
+      <div class="surface-card">
+        <div class="num">SURFACE / 06</div>
+        <h4>Signage &amp; Wayfinding</h4>
+        <p>Stamped not printed. The mono face does the work. Numbers over names where possible.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 08 · TOKENS -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">08 — Tokens</div>
+      <h2 class="sec-title">The <em>source</em> of truth.</h2>
+    </div>
+    <p class="sec-lead">Drop into Framer, Tailwind, or Figma variables. One file. One system. <em>Everything</em> derives from here.</p>
+
+    <pre class="tokens"><span class="tk-comment">/* Estancia Cafetera — Brand System v4 · FINAL */</span>
+
+:root {
+  <span class="tk-comment">/* Typography · Locked stack */</span>
+  <span class="tk-prop">--ec-font-wordmark</span>:  <span class="tk-val">"Archivo Black", sans-serif;</span>
+  <span class="tk-prop">--ec-font-editorial</span>: <span class="tk-val">"Migra", "Cormorant Garamond", serif;</span>
+  <span class="tk-prop">--ec-font-body</span>:      <span class="tk-val">"Söhne", "Untitled Sans", "Inter", sans-serif;</span>
+  <span class="tk-prop">--ec-font-mono</span>:      <span class="tk-val">"DM Mono", ui-monospace, monospace;</span>
+
+  <span class="tk-comment">/* Color · Primary */</span>
+  <span class="tk-prop">--ec-obsidian</span>:       <span class="tk-val">#1A1814;</span>
+  <span class="tk-prop">--ec-ash</span>:            <span class="tk-val">#E8E4DC;</span>
+  <span class="tk-prop">--ec-copper</span>:         <span class="tk-val">#B87333;</span>
+
+  <span class="tk-comment">/* Color · Warm Clay */</span>
+  <span class="tk-prop">--ec-terracotta-light</span>:  <span class="tk-val">#E9D3C1;</span>
+  <span class="tk-prop">--ec-terracotta-deep</span>:   <span class="tk-val">#B8704A;</span>
+  <span class="tk-prop">--ec-ember</span>:             <span class="tk-val">#C26A2C;</span>
+
+  <span class="tk-comment">/* Color · Secondary */</span>
+  <span class="tk-prop">--ec-green-deep</span>:     <span class="tk-val">#2C3E2D;</span>
+  <span class="tk-prop">--ec-fog</span>:            <span class="tk-val">#C4BDB0;</span>
+  <span class="tk-prop">--ec-cream</span>:          <span class="tk-val">#F5F0E8;</span>
+
+  <span class="tk-comment">/* Color · Earth */</span>
+  <span class="tk-prop">--ec-clay-dark</span>:      <span class="tk-val">#2E1F15;</span>  <span class="tk-comment">/* document base */</span>
+  <span class="tk-prop">--ec-terra</span>:          <span class="tk-val">#4A2E1F;</span>
+  <span class="tk-prop">--ec-adobe</span>:          <span class="tk-val">#6B3D24;</span>
+
+  <span class="tk-comment">/* Type · Scale */</span>
+  <span class="tk-prop">--ec-t-mono</span>:    <span class="tk-val">11px;</span>
+  <span class="tk-prop">--ec-t-body</span>:    <span class="tk-val">15px;</span>
+  <span class="tk-prop">--ec-t-lede</span>:    <span class="tk-val">22px;</span>
+  <span class="tk-prop">--ec-t-h3</span>:      <span class="tk-val">40px;</span>
+  <span class="tk-prop">--ec-t-h2</span>:      <span class="tk-val">72px;</span>
+  <span class="tk-prop">--ec-t-h1</span>:      <span class="tk-val">168px;</span>
+
+  <span class="tk-comment">/* Spacing · 8pt */</span>
+  <span class="tk-prop">--ec-s-1</span>: <span class="tk-val">4px;</span>   <span class="tk-prop">--ec-s-2</span>: <span class="tk-val">8px;</span>
+  <span class="tk-prop">--ec-s-3</span>: <span class="tk-val">16px;</span>  <span class="tk-prop">--ec-s-4</span>: <span class="tk-val">24px;</span>
+  <span class="tk-prop">--ec-s-5</span>: <span class="tk-val">40px;</span>  <span class="tk-prop">--ec-s-6</span>: <span class="tk-val">64px;</span>
+  <span class="tk-prop">--ec-s-7</span>: <span class="tk-val">104px;</span> <span class="tk-prop">--ec-s-8</span>: <span class="tk-val">168px;</span>
+}</pre>
+  </section>
+
+
+  <!-- SPRINT SUMMARY -->
+  <div class="sprint">
+    <p class="sprint-meta">— Sprint 3 · Project Status —</p>
+    <h3>Brand foundation: <em>complete.</em></h3>
+
+    <div class="sprint-grid">
+      <div class="sprint-col">
+        <h4>— Delivered (Sprint 3)</h4>
+        <ul>
+          <li><span><strong>Philosophy</strong> — Volcanic restraint, three principles</span></li>
+          <li><span><strong>Guest profiling</strong> — Three personas + convergence</span></li>
+          <li><span><strong>Color system</strong> — 12 colors, 3 families</span></li>
+          <li><span><strong>Typography</strong> — 4 faces, clear jobs</span></li>
+          <li><span><strong>Voice principles</strong> — We say / We don't pairs</span></li>
+          <li><span><strong>Image direction</strong> — 8 moods + always/never</span></li>
+          <li><span><strong>Surface taxonomy</strong> — Six documented surfaces</span></li>
+          <li><span><strong>CSS tokens</strong> — Framer-ready spec</span></li>
+        </ul>
+      </div>
+      <div class="sprint-col">
+        <h4>— Next sprints (open)</h4>
+        <ul>
+          <li class="pending"><span><strong>Sprint 4 · Homepage</strong> — Hero, first scroll, brand expression</span></li>
+          <li class="pending"><span><strong>Sprint 5 · Guest portal</strong> — Booking flow, pre-arrival, in-stay</span></li>
+          <li class="pending"><span><strong>Sprint 6 · Print spec</strong> — Stocks, finishing, room numbers</span></li>
+          <li class="pending"><span><strong>Sprint 7 · Photography</strong> — Commission using Section 06</span></li>
+          <li class="pending"><span><strong>License Migra</strong> — Pangram Pangram, ~$80</span></li>
+          <li class="pending"><span><strong>License Söhne</strong> — Klim Type Foundry (optional)</span></li>
+          <li class="pending"><span><strong>Framer handoff</strong> — Components, templates, tokens</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="sprint-close">The brand system is <em>locked</em>. The next sprints build surfaces using this foundation. Nothing in Sections 01–08 should change without a formal sprint review.</p>
+  </div>
+
+
+  <footer>
+    <div class="mark">Estancia Cafetera</div>
+    <div class="meta">
+      Brand System v4 · FINAL · LOCKED<br>
+      Sprint 3 complete · Ready for Sprint 4<br>
+      Tepoztlán · Morelos · México
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

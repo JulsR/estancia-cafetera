@@ -1,0 +1,187 @@
+{
+  "$schema": "https://schemas.tokens.studio/schema.json",
+  "$metadata": {
+    "name": "Estancia Cafetera",
+    "version": "1.0.0",
+    "description": "Design tokens for Estancia Cafetera brand system. Volcanic restraint — premium through patience, not polish.",
+    "lastUpdated": "2026-05-22"
+  },
+
+  "primitive": {
+    "color": {
+      "obsidian":         { "value": "#1A1814", "type": "color", "description": "Deepest dark. Never use pure black." },
+      "ash":              { "value": "#E8E4DC", "type": "color", "description": "Warm off-white. Primary text on dark." },
+      "copper":           { "value": "#B87333", "type": "color", "description": "Brand accent. Use sparingly." },
+
+      "clay-dark":        { "value": "#2E1F15", "type": "color", "description": "Document base. Dark coffee brown." },
+      "clay-deep":        { "value": "#1F1410", "type": "color", "description": "Background deep — sections, cards." },
+      "clay-lift":        { "value": "#3A2818", "type": "color", "description": "Background lift — hover, elevated." },
+
+      "terracotta-light": { "value": "#E9D3C1", "type": "color", "description": "Warm clay light." },
+      "terracotta-deep":  { "value": "#B8704A", "type": "color", "description": "Warm clay deep." },
+      "ember":            { "value": "#C26A2C", "type": "color", "description": "Accent — warmer than copper." },
+
+      "green-deep":       { "value": "#2C3E2D", "type": "color", "description": "Deep green — secondary." },
+      "fog":              { "value": "#C4BDB0", "type": "color", "description": "Muted grey-warm." },
+      "cream":            { "value": "#F5F0E8", "type": "color", "description": "Soft cream — never pure white." },
+
+      "ink-soft":         { "value": "#B8A88E", "type": "color", "description": "Body text on dark — softer than ash." },
+      "ink-faint":        { "value": "#8A7B63", "type": "color", "description": "Captions, metadata." },
+
+      "rule":             { "value": "rgba(232, 228, 220, 0.10)", "type": "color", "description": "Standard dividing rule on dark." },
+      "rule-soft":        { "value": "rgba(232, 228, 220, 0.05)", "type": "color", "description": "Subtle dividing rule." }
+    },
+
+    "font": {
+      "wordmark":  { "value": "Archivo Black, sans-serif",                  "type": "fontFamily" },
+      "editorial": { "value": "Cormorant Garamond, Migra, serif",           "type": "fontFamily", "description": "Migra is licensed final; Cormorant Garamond is free placeholder." },
+      "body":      { "value": "Inter, Söhne, Untitled Sans, sans-serif",    "type": "fontFamily", "description": "Söhne is licensed target; Inter is free placeholder." },
+      "mono":      { "value": "DM Mono, ui-monospace, monospace",            "type": "fontFamily" }
+    },
+
+    "fontSize": {
+      "mono":   { "value": "11px", "type": "fontSize" },
+      "body":   { "value": "15px", "type": "fontSize" },
+      "lede":   { "value": "22px", "type": "fontSize" },
+      "h3":     { "value": "40px", "type": "fontSize" },
+      "h2":     { "value": "72px", "type": "fontSize" },
+      "h1":     { "value": "120px", "type": "fontSize" }
+    },
+
+    "fontWeight": {
+      "light":    { "value": 300, "type": "fontWeight" },
+      "regular":  { "value": 400, "type": "fontWeight" },
+      "medium":   { "value": 500, "type": "fontWeight" },
+      "semibold": { "value": 600, "type": "fontWeight" },
+      "black":    { "value": 900, "type": "fontWeight" }
+    },
+
+    "lineHeight": {
+      "tight":   { "value": "0.95", "type": "lineHeight", "description": "For wordmark, h1." },
+      "snug":    { "value": "1.1",  "type": "lineHeight", "description": "For h2, h3." },
+      "normal":  { "value": "1.5",  "type": "lineHeight", "description": "For editorial lede." },
+      "relaxed": { "value": "1.6",  "type": "lineHeight", "description": "For body copy." },
+      "loose":   { "value": "1.8",  "type": "lineHeight", "description": "For mono labels." }
+    },
+
+    "letterSpacing": {
+      "tight":  { "value": "-0.02em", "type": "letterSpacing", "description": "For editorial serif at large size." },
+      "normal": { "value": "0",       "type": "letterSpacing" },
+      "wide":   { "value": "0.01em",  "type": "letterSpacing", "description": "For wordmark." },
+      "wider":  { "value": "0.14em",  "type": "letterSpacing", "description": "For mono labels — uppercase." },
+      "widest": { "value": "0.16em",  "type": "letterSpacing", "description": "For mono section markers." }
+    },
+
+    "space": {
+      "s-1": { "value": "4px",   "type": "spacing" },
+      "s-2": { "value": "8px",   "type": "spacing" },
+      "s-3": { "value": "16px",  "type": "spacing" },
+      "s-4": { "value": "24px",  "type": "spacing" },
+      "s-5": { "value": "40px",  "type": "spacing" },
+      "s-6": { "value": "64px",  "type": "spacing" },
+      "s-7": { "value": "104px", "type": "spacing" },
+      "s-8": { "value": "168px", "type": "spacing" }
+    },
+
+    "radius": {
+      "none": { "value": "0px", "type": "borderRadius", "description": "Default — the brand uses hard edges." },
+      "sm":   { "value": "2px", "type": "borderRadius" },
+      "md":   { "value": "4px", "type": "borderRadius" }
+    }
+  },
+
+  "semantic": {
+    "color": {
+      "background": {
+        "base":  { "value": "{primitive.color.clay-dark}",  "type": "color", "description": "Document base — dark coffee brown." },
+        "deep":  { "value": "{primitive.color.clay-deep}",  "type": "color", "description": "Cards, code blocks, deeper surfaces." },
+        "lift":  { "value": "{primitive.color.clay-lift}",  "type": "color", "description": "Hover, elevated states." }
+      },
+      "ink": {
+        "primary":   { "value": "{primitive.color.ash}",        "type": "color", "description": "Body text, headings." },
+        "secondary": { "value": "{primitive.color.ink-soft}",   "type": "color", "description": "Body copy, secondary text." },
+        "tertiary":  { "value": "{primitive.color.ink-faint}",  "type": "color", "description": "Captions, metadata." }
+      },
+      "accent": {
+        "primary":   { "value": "{primitive.color.ember}",      "type": "color", "description": "Accents, links, highlights." },
+        "secondary": { "value": "{primitive.color.copper}",     "type": "color", "description": "Brief-locked brand accent — use sparingly." }
+      },
+      "border": {
+        "subtle": { "value": "{primitive.color.rule-soft}", "type": "color" },
+        "default": { "value": "{primitive.color.rule}",    "type": "color" }
+      }
+    },
+
+    "type": {
+      "wordmark": {
+        "fontFamily":    { "value": "{primitive.font.wordmark}",   "type": "fontFamily" },
+        "fontSize":      { "value": "{primitive.fontSize.h1}",     "type": "fontSize" },
+        "fontWeight":    { "value": "{primitive.fontWeight.black}", "type": "fontWeight" },
+        "lineHeight":    { "value": "{primitive.lineHeight.tight}", "type": "lineHeight" },
+        "letterSpacing": { "value": "{primitive.letterSpacing.wide}", "type": "letterSpacing" },
+        "textTransform": { "value": "uppercase", "type": "other" },
+        "filter":        { "value": "url(#ink-bleed)", "type": "other", "description": "Apply SVG ink-bleed filter — definition in brand system." }
+      },
+      "display": {
+        "fontFamily":    { "value": "{primitive.font.editorial}", "type": "fontFamily" },
+        "fontSize":      { "value": "{primitive.fontSize.h2}",    "type": "fontSize" },
+        "fontWeight":    { "value": "{primitive.fontWeight.light}", "type": "fontWeight" },
+        "lineHeight":    { "value": "{primitive.lineHeight.snug}", "type": "lineHeight" },
+        "letterSpacing": { "value": "{primitive.letterSpacing.tight}", "type": "letterSpacing" }
+      },
+      "heading": {
+        "fontFamily":    { "value": "{primitive.font.editorial}", "type": "fontFamily" },
+        "fontSize":      { "value": "{primitive.fontSize.h3}",    "type": "fontSize" },
+        "fontWeight":    { "value": "{primitive.fontWeight.regular}", "type": "fontWeight" },
+        "lineHeight":    { "value": "{primitive.lineHeight.snug}", "type": "lineHeight" }
+      },
+      "lede": {
+        "fontFamily":    { "value": "{primitive.font.editorial}", "type": "fontFamily" },
+        "fontSize":      { "value": "{primitive.fontSize.lede}",  "type": "fontSize" },
+        "fontWeight":    { "value": "{primitive.fontWeight.regular}", "type": "fontWeight" },
+        "lineHeight":    { "value": "{primitive.lineHeight.normal}", "type": "lineHeight" },
+        "fontStyle":     { "value": "italic", "type": "other", "description": "Editorial lede uses italic." }
+      },
+      "body": {
+        "fontFamily":    { "value": "{primitive.font.body}",      "type": "fontFamily" },
+        "fontSize":      { "value": "{primitive.fontSize.body}",  "type": "fontSize" },
+        "fontWeight":    { "value": "{primitive.fontWeight.regular}", "type": "fontWeight" },
+        "lineHeight":    { "value": "{primitive.lineHeight.relaxed}", "type": "lineHeight" }
+      },
+      "label": {
+        "fontFamily":    { "value": "{primitive.font.mono}",      "type": "fontFamily" },
+        "fontSize":      { "value": "{primitive.fontSize.mono}",  "type": "fontSize" },
+        "fontWeight":    { "value": "{primitive.fontWeight.regular}", "type": "fontWeight" },
+        "lineHeight":    { "value": "{primitive.lineHeight.loose}", "type": "lineHeight" },
+        "letterSpacing": { "value": "{primitive.letterSpacing.wider}", "type": "letterSpacing" },
+        "textTransform": { "value": "uppercase", "type": "other" }
+      }
+    }
+  },
+
+  "component": {
+    "button": {
+      "primary": {
+        "background":   { "value": "{semantic.color.accent.primary}", "type": "color" },
+        "color":        { "value": "{semantic.color.ink.primary}",   "type": "color" },
+        "paddingX":     { "value": "{primitive.space.s-4}", "type": "spacing" },
+        "paddingY":     { "value": "{primitive.space.s-3}", "type": "spacing" },
+        "borderRadius": { "value": "{primitive.radius.none}", "type": "borderRadius" }
+      },
+      "ghost": {
+        "background":   { "value": "transparent", "type": "color" },
+        "color":        { "value": "{semantic.color.ink.primary}", "type": "color" },
+        "border":       { "value": "1px solid {semantic.color.border.default}", "type": "border" }
+      }
+    },
+    "card": {
+      "background":   { "value": "{semantic.color.background.deep}", "type": "color" },
+      "border":       { "value": "1px solid {semantic.color.border.default}", "type": "border" },
+      "padding":      { "value": "{primitive.space.s-5}", "type": "spacing" }
+    },
+    "section": {
+      "paddingY":     { "value": "{primitive.space.s-8}", "type": "spacing" },
+      "borderBottom": { "value": "1px solid {semantic.color.border.default}", "type": "border" }
+    }
+  }
+}
