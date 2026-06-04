@@ -29,6 +29,13 @@ Estancia Cafetera is a 100-year-old coffee estate boutique hotel in Tepoztlán, 
 | `ink-soft` | `#B8A88E` | Secondary body text on dark. |
 | `ink-faint` | `#8A7B63` | Captions, metadata. |
 
+### v4.1 · Accent colors (added 2026-06-03)
+
+| Token name | Hex | Use |
+|---|---|---|
+| `talavera` | `#2D4A7B` | **Accent only** — Talavera tile blue, appears on craft objects (tile, painted ceramic). Never UI, never background. |
+| `bougainvillea` | `#C04A6E` | **Photography only** — seasonal magenta of Tepoztlán bougainvillea. Never graphic design, never paired with Talavera in same frame. |
+
 ```css
 :root {
   --bg:                 #2E1F15;
@@ -132,6 +139,29 @@ no people facing camera, no logos, no modern technology --ar 4:5 --style raw --s
 
 ---
 
+## 05.5 · Two registers (v4.1)
+
+The brand operates in two atmospheric modes. Pick one per page or scroll moment. Never mix in the same composition.
+
+### Register 01 — Editorial Dark
+**For:** philosophy, story, coffee program, mezcal cellar, print collateral, section transitions.
+**Light:** single-source, side or back, the hour before sunrise or after sunset, long shadows.
+**Palette:** terracotta, deep brown, copper, ash linen, deep green.
+**People:** none, or hands without faces.
+**Source:** AI imagery (Midjourney v7, the 40-prompt library) leads here.
+
+### Register 02 — Property Bright
+**For:** property gallery, rooms, restaurant, pool, grounds, location pages, social, press kit.
+**Light:** mid-morning to mid-afternoon Mexican highland sun, blue sky, bright shadows.
+**Palette:** terracotta floor, white stucco, painted Talavera tile, bougainvillea, real foliage.
+**People:** real staff working, never posing, never to camera.
+**Source:** Real photography leads here. The Tepozteco appears when it can — it anchors place.
+
+### The rule
+A single page never mixes the two registers in the same scroll moment. Each surface picks a tier and stays in it. Real photography (Tier 1) leads the library. AI imagery (Tier 2) fills the gaps for what couldn't be photographed.
+
+---
+
 ## 06 · Guest profiles
 
 ### Profile 01 — The Coffee Pilgrim
@@ -207,4 +237,4 @@ When prompting Claude or GPT to produce on-brand output for Estancia Cafetera, p
 
 ---
 
-_Last updated: 2026-05-22. Version 1.0._
+_Last updated: 2026-06-03. Version 1.1 (adds two-register model, Talavera + Bougainvillea accent colors, real photography direction)._

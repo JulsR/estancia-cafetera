@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estancia Cafetera — v4.1 Evolution · Two Registers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --obsidian: #1A1814; --ash: #E8E4DC; --copper: #B87333;
+    --bg: #2E1F15; --bg-deep: #1F1410; --bg-lift: #3A2818;
+    --terracotta-light: #E9D3C1; --terracotta-deep: #B8704A;
+    --green-deep: #2C3E2D; --fog: #C4BDB0; --ember: #C26A2C;
+    --talavera: #2D4A7B; --bougainvillea: #C04A6E;
+    --bright-sky: #A8C8DC; --bright-stone: #C9A586;
+    --ink: var(--ash); --ink-soft: #B8A88E; --ink-faint: #8A7B63;
+    --rule: rgba(232,228,220,0.12); --rule-soft: rgba(232,228,220,0.05);
+    --accent: var(--ember);
+    --t-mono: 11px; --t-body: 15px; --t-lede: 22px;
+    --s-1: 4px; --s-2: 8px; --s-3: 16px; --s-4: 24px;
+    --s-5: 40px; --s-6: 64px; --s-7: 104px; --s-8: 168px;
+    --font-wordmark: 'Archivo Black', sans-serif;
+    --font-editorial: 'Cormorant Garamond', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--t-body); line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: 0.05; mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.85  0 0 0 0 0.78  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 0 var(--s-6); position: relative; z-index: 2; }
+  .masthead { padding: var(--s-8) 0 var(--s-7); border-bottom: 1px solid var(--rule); }
+  .meta-row { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: var(--s-7); }
+  .meta-row span:nth-child(2) { color: var(--accent); }
+  .doc-title { font-family: var(--font-wordmark); font-weight: 900; font-size: clamp(48px, 8vw, 120px); line-height: 0.95; letter-spacing: 0.01em; text-transform: uppercase; color: var(--ink); filter: url(#ink-bleed); margin-bottom: var(--s-5); display: block; }
+  .doc-subtitle { font-family: var(--font-editorial); font-style: italic; font-weight: 400; font-size: clamp(24px, 2.2vw, 36px); line-height: 1.3; color: var(--ink); max-width: 36ch; margin-bottom: var(--s-5); }
+  .doc-subtitle em { color: var(--accent); }
+  .doc-meta-grid { padding-top: var(--s-5); border-top: 1px solid var(--rule-soft); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s-4); font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); line-height: 1.8; }
+  .doc-meta-grid strong { color: var(--ink); display: block; margin-bottom: 4px; }
+  section { padding: var(--s-8) 0 var(--s-7); border-bottom: 1px solid var(--rule); }
+  .sec-head { display: grid; grid-template-columns: 200px 1fr; gap: var(--s-5); margin-bottom: var(--s-6); align-items: start; }
+  .sec-num { font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); padding-top: 18px; }
+  .sec-title { font-family: var(--font-editorial); font-weight: 400; font-size: clamp(44px, 5.5vw, 84px); line-height: 1; letter-spacing: -0.02em; color: var(--ink); max-width: 22ch; }
+  .sec-title em { font-style: italic; color: var(--accent); }
+  .sec-lead { margin-bottom: var(--s-6); max-width: 64ch; font-family: var(--font-editorial); font-style: italic; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1.5; color: var(--ink); }
+  .sec-lead em { color: var(--accent); }
+
+  .register-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); margin-bottom: var(--s-5); }
+  .register { padding: var(--s-5); border: 1px solid var(--rule); background: var(--bg-deep); }
+  .register.bright { background: linear-gradient(135deg, #4A3A28 0%, #3A2818 100%); border-color: rgba(232,228,220,0.18); }
+  .register-tag { font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s-3); }
+  .register h3 { font-family: var(--font-editorial); font-weight: 400; font-size: 36px; line-height: 1.05; color: var(--ink); margin-bottom: var(--s-3); letter-spacing: -0.01em; }
+  .register h3 em { font-style: italic; color: var(--accent); }
+  .register .desc { font-family: var(--font-editorial); font-style: italic; font-size: 18px; color: var(--ink-soft); margin-bottom: var(--s-4); line-height: 1.5; max-width: 32ch; }
+  .register .rules { list-style: none; padding: 0; }
+  .register .rules li { font-family: var(--font-body); font-size: 13.5px; line-height: 1.65; color: var(--ink); padding: 6px 0; border-bottom: 1px solid var(--rule-soft); }
+  .register .rules li::before { content: '— '; color: var(--accent); }
+  .register .uses { margin-top: var(--s-4); padding-top: var(--s-3); border-top: 1px solid var(--rule-soft); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); line-height: 1.8; }
+  .register .uses strong { color: var(--accent); display: block; margin-bottom: 4px; }
+
+  .color-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-5); }
+  .color-card { padding: var(--s-5); border: 1px solid var(--rule); background: var(--bg-deep); display: grid; grid-template-columns: 120px 1fr; gap: var(--s-4); align-items: stretch; }
+  .color-chip { border: 1px solid var(--rule); min-height: 160px; }
+  .color-info h4 { font-family: var(--font-editorial); font-weight: 400; font-size: 28px; line-height: 1.1; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.005em; }
+  .color-info h4 em { font-style: italic; color: var(--accent); }
+  .color-info .hex { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; color: var(--ink-soft); margin-bottom: var(--s-3); }
+  .color-info .use { font-family: var(--font-body); font-size: 13.5px; line-height: 1.6; color: var(--ink); margin-bottom: var(--s-3); }
+  .color-info .rule { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); line-height: 1.7; padding-top: var(--s-3); border-top: 1px solid var(--rule-soft); }
+
+  .photo-direction { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); }
+  .photo-col h4 { font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: var(--s-4); padding-bottom: var(--s-3); border-bottom: 1px solid var(--rule); }
+  .photo-col.keep h4 { color: var(--accent); }
+  .photo-col.kill h4 { color: #d96666; }
+  .photo-col ul { list-style: none; padding: 0; }
+  .photo-col li { font-family: var(--font-editorial); font-style: italic; font-size: 19px; line-height: 1.5; color: var(--ink); padding: 12px 0; border-bottom: 1px solid var(--rule-soft); }
+  .photo-col li:last-child { border-bottom: none; }
+
+  .baseline { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-4); }
+  .baseline-card { border: 1px solid var(--rule); background: var(--bg-deep); padding: var(--s-4); }
+  .baseline-card .num { font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--s-2); }
+  .baseline-card h4 { font-family: var(--font-editorial); font-weight: 400; font-size: 22px; line-height: 1.1; color: var(--ink); margin-bottom: var(--s-3); letter-spacing: -0.005em; }
+  .baseline-card h4 em { font-style: italic; color: var(--accent); }
+  .baseline-card .filename { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; color: var(--ink-soft); margin-bottom: var(--s-3); padding-bottom: var(--s-3); border-bottom: 1px solid var(--rule-soft); }
+  .baseline-card p { font-family: var(--font-body); font-size: 13px; line-height: 1.6; color: var(--ink); margin-bottom: var(--s-3); }
+  .baseline-card .use { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+
+  .changelog { background: var(--bg-deep); border: 1px solid var(--rule); padding: var(--s-5); font-family: var(--font-mono); font-size: 12.5px; line-height: 1.9; color: var(--ink); }
+  .changelog .add { color: var(--ember); }
+  .changelog .keep { color: var(--ink-soft); }
+  .changelog .change { color: var(--terracotta-light); }
+  .changelog strong { color: var(--accent); }
+
+  footer { padding: var(--s-7) 0 var(--s-8); display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-5); align-items: end; }
+  footer .mark { font-family: var(--font-wordmark); font-weight: 900; font-size: 32px; line-height: 1; text-transform: uppercase; letter-spacing: 0.02em; color: var(--ink); filter: url(#ink-bleed); }
+  footer .meta { font-family: var(--font-mono); font-size: var(--t-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); text-align: right; line-height: 1.9; }
+  @media (max-width: 1000px) {
+    .sec-head, .register-grid, .color-grid, .photo-direction, .baseline { grid-template-columns: 1fr; gap: var(--s-3); }
+    .color-card { grid-template-columns: 1fr; }
+    .doc-meta-grid { grid-template-columns: 1fr 1fr; }
+    footer { grid-template-columns: 1fr; }
+    footer .meta { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="ink-bleed">
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+    <feGaussianBlur in="displaced" stdDeviation="0.3" result="blurred"/>
+    <feComponentTransfer in="blurred"><feFuncA type="linear" slope="1.4" intercept="-0.1"/></feComponentTransfer>
+  </filter>
+</svg>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="meta-row">
+      <span>v4.1 · Brand Evolution Addendum</span>
+      <span>Two Registers</span>
+      <span>03 · 06 · 2026</span>
+    </div>
+    <h1 class="doc-title">Two<br>Registers</h1>
+    <p class="doc-subtitle">The brand learned to live in <em>both</em> the dark and the bright. Volcanic restraint, refined by what Tepoztlán actually is.</p>
+    <div class="doc-meta-grid">
+      <div><strong>Why this exists</strong>Real Tepoztlán<br>photography revealed<br>a brighter reality</div>
+      <div><strong>Scope</strong>Addendum to v4<br>Not a rebuild<br>Both versions valid</div>
+      <div><strong>Changes</strong>Adds bright register<br>+2 accent colors<br>Real photo direction</div>
+      <div><strong>Parent</strong>brand-system v4<br>tokens v1.1<br>brief v1.1</div>
+    </div>
+  </header>
+
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">01 — Why this evolution</div>
+      <h2 class="sec-title">What Tepoztlán <em>actually is.</em></h2>
+    </div>
+    <p class="sec-lead">v4 imagined the brand. v4.1 was informed by <em>standing there</em>. The dark editorial register was right for the philosophy — but it didn't account for Mexican highland sun, Talavera blue tile, bougainvillea, or staff working the gardens at 5pm.</p>
+
+    <div class="changelog">
+<span class="add">+ ADD</span>     <strong>Bright register</strong> · for property documentation, daytime, real photography<br>
+<span class="add">+ ADD</span>     <strong>Talavera Blue #2D4A7B</strong> · accent only · appears on craft objects (tile, ceramic)<br>
+<span class="add">+ ADD</span>     <strong>Bougainvillea #C04A6E</strong> · seasonal accent · appears as moments, not structure<br>
+<span class="add">+ ADD</span>     <strong>Real Photography Direction</strong> · companion to AI Image Direction<br>
+<span class="change">~ EVOLVE</span>  <strong>Image Direction Section</strong> · acknowledges both registers · context-aware<br>
+<span class="keep">= KEEP</span>    <strong>Everything else</strong> · typography, voice, structure, dark base, philosophy
+    </div>
+  </section>
+
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">02 — The Two Registers</div>
+      <h2 class="sec-title">One brand. Two <em>atmospheres.</em></h2>
+    </div>
+    <p class="sec-lead">The same restraint, expressed in two lights. <em>Dark is for story.</em> Bright is for place. The brand picks the right register for the surface — never mixes them within a single composition.</p>
+
+    <div class="register-grid">
+      <div class="register">
+        <div class="register-tag">/ Register 01</div>
+        <h3>Editorial <em>Dark</em></h3>
+        <p class="desc">For story, philosophy, the inside of the brand. Single-source light. Long shadows. Observed silence.</p>
+        <ul class="rules">
+          <li>Single-source natural light, side or back</li>
+          <li>Long shadows, dim interiors photographed dim</li>
+          <li>Hand-thrown ceramic, dark wood, copper, candle</li>
+          <li>Terracotta and deep brown earth palette</li>
+          <li>No people, or hands without faces</li>
+          <li>The hour before sunrise, the hour after sunset</li>
+        </ul>
+        <div class="uses"><strong>— Used for</strong>Website hero (editorial side)<br>Philosophy & story pages<br>Coffee program, mezcal cellar<br>Print collateral · menus<br>Section transitions</div>
+      </div>
+
+      <div class="register bright">
+        <div class="register-tag">/ Register 02</div>
+        <h3>Property <em>Bright</em></h3>
+        <p class="desc">For the place itself, in real Mexican sun. The hotel as it actually is — alive, occupied, full of pattern and bougainvillea.</p>
+        <ul class="rules">
+          <li>Mid-morning to mid-afternoon natural light</li>
+          <li>Blue Mexican highland sky, bright shadows</li>
+          <li>Terracotta floor, white stucco arch, painted tile</li>
+          <li>Bougainvillea and foliage allowed as accents</li>
+          <li>Real staff working, no posing, no tourists</li>
+          <li>The Tepozteco visible when it can be — anchors place</li>
+        </ul>
+        <div class="uses"><strong>— Used for</strong>Property gallery · rooms<br>Restaurant · pool · grounds<br>Location & arrival pages<br>Social documentation<br>Press kit · brochures</div>
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">03 — Accent Colors</div>
+      <h2 class="sec-title">Two new <em>moments.</em></h2>
+    </div>
+    <p class="sec-lead">Neither is a system color. They never paint a button or a background. They <em>appear</em> in the world — on a tile, on a flower, on a sleeve of denim — and the brand allows them in without controlling them.</p>
+
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-chip" style="background: #2D4A7B;"></div>
+        <div class="color-info">
+          <h4>Talavera <em>Blue</em></h4>
+          <div class="hex">#2D4A7B · accent · craft only</div>
+          <p class="use">The deep cobalt of Mexican Talavera tile. Appears on painted ceramic, hand-tiled walls, hand-painted plates. Centuries-old Mexican craft tradition.</p>
+          <div class="rule">— Use on Tile · ceramic · craft objects only<br>— Never on UI · buttons · text<br>— Never as background fill</div>
+        </div>
+      </div>
+
+      <div class="color-card">
+        <div class="color-chip" style="background: #C04A6E;"></div>
+        <div class="color-info">
+          <h4>Bougainvillea <em>Magenta</em></h4>
+          <div class="hex">#C04A6E · seasonal · nature only</div>
+          <p class="use">The improbable magenta of bougainvillea cascading over stone walls. A color that should not work with the brand and does. Used as a moment, never a system.</p>
+          <div class="rule">— Use in Photography only · as it appears<br>— Never in graphic design or UI<br>— Never paired with Talavera Blue in same frame</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">04 — Real Photography Direction</div>
+      <h2 class="sec-title">When the camera is <em>actually there.</em></h2>
+    </div>
+    <p class="sec-lead">Companion brief to the AI Image Direction. For when you, a hired photographer, or staff document the actual property. Same restraint principle — applied to real Mexican light.</p>
+
+    <div class="photo-direction">
+      <div class="photo-col keep">
+        <h4>— Keep when</h4>
+        <ul>
+          <li>The Tepozteco is in frame — it anchors the place</li>
+          <li>Terracotta floor tiles are visible in foreground</li>
+          <li>Bougainvillea appears organically — never staged</li>
+          <li>Staff are working, never posing, never to camera</li>
+          <li>Light is mid-morning or golden hour — bright, not flat</li>
+          <li>Empty tables, empty chairs — implies presence, not absence</li>
+          <li>Talavera tile patterns appear on real surfaces</li>
+          <li>Real cobblestone, real stone walls, real volcanic rock</li>
+        </ul>
+      </div>
+      <div class="photo-col kill">
+        <h4>— Kill when</h4>
+        <ul>
+          <li>Modern technology is visible — phones, laptops, screens</li>
+          <li>Power lines or traffic cones cut through the frame</li>
+          <li>Tourist props — sombreros, "Mexico" merchandise, kitsch</li>
+          <li>Posed faces, smiles to camera, group shots</li>
+          <li>Flat midday sun — wait for the light, always</li>
+          <li>Mannequins, signage, commercial intrusion</li>
+          <li>Pool umbrellas with stripes or branding</li>
+          <li>Anything that says "boutique hotel" before it says "Tepoztlán"</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">05 — The Visual Baseline</div>
+      <h2 class="sec-title">Six photographs. <em>The library begins.</em></h2>
+    </div>
+    <p class="sec-lead">Phase 01 of the image library, locked. <em>Your photography</em> — taken in Tepoztlán, not generated. These six establish the bright register and become the inheritance point for every photograph that follows.</p>
+
+    <div class="baseline">
+      <div class="baseline-card">
+        <div class="num">/ 01 · HERO</div>
+        <h4>Breakfast <em>with Tepozteco</em></h4>
+        <div class="filename">01-breakfast-tepozteco.jpeg</div>
+        <p>Two place settings, bistro chairs, pebble floor, mountain valley beyond. The signature shot of the brand. Composition, light, depth, the place.</p>
+        <div class="use">— Use Website hero · landing</div>
+      </div>
+
+      <div class="baseline-card">
+        <div class="num">/ 02 · PLACE</div>
+        <h4>Terrace <em>and Tepozteco</em></h4>
+        <div class="filename">02-terrace-tepozteco.jpeg</div>
+        <p>Empty bistro chairs on terracotta floor, the full rock formation behind. Architectural without people. The brand's relationship to the land made literal.</p>
+        <div class="use">— Use About · location · arrival</div>
+      </div>
+
+      <div class="baseline-card">
+        <div class="num">/ 03 · PEOPLE</div>
+        <h4>Gardener <em>at golden hour</em></h4>
+        <div class="filename">03-gardener-golden-hour.jpeg</div>
+        <p>Real staff, hat and water hose, no face to camera. The "people through work" rule perfectly executed. Lived-in luxury made visible.</p>
+        <div class="use">— Use Philosophy · story · about</div>
+      </div>
+
+      <div class="baseline-card">
+        <div class="num">/ 04 · INTERIOR</div>
+        <h4>Restaurant <em>vault</em></h4>
+        <div class="filename">04-restaurant-vault.jpeg</div>
+        <p>Brick-vaulted ceiling, terracotta floor, set tables glimpsed through a wooden door. Editorial architecture. The signature interior.</p>
+        <div class="use">— Use Restaurant · dining page</div>
+      </div>
+
+      <div class="baseline-card">
+        <div class="num">/ 05 · MATERIAL</div>
+        <h4>Mezcal <em>courtyard</em></h4>
+        <div class="filename">05-mezcal-courtyard.jpeg</div>
+        <p>Clay tile roof, rough-hewn wood table, ceramic shelving. Material truth in real Tepoztlán light. The brand's "matter, not moment" rule, real.</p>
+        <div class="use">— Use Bar · mezcalería · social</div>
+      </div>
+
+      <div class="baseline-card">
+        <div class="num">/ 06 · STORY</div>
+        <h4>Mezcal <em>cellar</em></h4>
+        <div class="filename">06-mezcal-cellar.jpeg</div>
+        <p>Backlit bottles, raw concrete, intimate scale. Where the bright register touches the dark register — the brand at the threshold between place and story.</p>
+        <div class="use">— Use Mezcal program · editorial</div>
+      </div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">06 — Where AI fits now</div>
+      <h2 class="sec-title">The library has a <em>second tier.</em></h2>
+    </div>
+    <p class="sec-lead">Real photography leads. AI fills the gaps — for what you can't photograph in a single trip, or won't have access to until the imagined property exists. <em>Real is the source. AI is the supplement.</em></p>
+
+    <div class="changelog">
+<strong>TIER 1 · Real photography</strong><br>
+<span class="add">Used for</span>  Property documentation · place · staff · architecture · food<br>
+<span class="add">Source</span>     Your own camera or hired photographer<br>
+<span class="add">Register</span>   Mostly bright · occasionally dark<br>
+<br>
+<strong>TIER 2 · AI imagery</strong><br>
+<span class="change">Used for</span>  Coffee plant close-ups · dawn moments · abstract details<br>
+<span class="change">Source</span>     Midjourney v7 · the 40-prompt Sprint 4 library<br>
+<span class="change">Register</span>   Mostly dark · editorial moments<br>
+<br>
+<strong>RULE</strong>             A single page never mixes Tier 1 and Tier 2 in the<br>
+                 same scroll moment. Each page picks a tier and stays.
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="mark">Estancia Cafetera</div>
+    <div class="meta">
+      v4.1 · Two Registers · Evolution<br>
+      Addendum to v4 · not a replacement<br>
+      Updated tokens · brief · photo manifest
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

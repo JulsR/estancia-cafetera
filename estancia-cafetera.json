@@ -2,9 +2,9 @@
   "$schema": "https://schemas.tokens.studio/schema.json",
   "$metadata": {
     "name": "Estancia Cafetera",
-    "version": "1.0.0",
-    "description": "Design tokens for Estancia Cafetera brand system. Volcanic restraint — premium through patience, not polish.",
-    "lastUpdated": "2026-05-22"
+    "version": "1.1.0",
+    "description": "Design tokens for Estancia Cafetera brand system. Volcanic restraint — premium through patience, not polish. v1.1 adds Talavera and Bougainvillea accent colors per brand evolution v4.1.",
+    "lastUpdated": "2026-06-03"
   },
 
   "primitive": {
@@ -24,6 +24,9 @@
       "green-deep":       { "value": "#2C3E2D", "type": "color", "description": "Deep green — secondary." },
       "fog":              { "value": "#C4BDB0", "type": "color", "description": "Muted grey-warm." },
       "cream":            { "value": "#F5F0E8", "type": "color", "description": "Soft cream — never pure white." },
+
+      "talavera":         { "value": "#2D4A7B", "type": "color", "description": "v4.1 · Talavera tile blue. Accent only — appears on craft objects, never UI." },
+      "bougainvillea":    { "value": "#C04A6E", "type": "color", "description": "v4.1 · Bougainvillea magenta. Seasonal accent — appears in photography only, never graphic design." },
 
       "ink-soft":         { "value": "#B8A88E", "type": "color", "description": "Body text on dark — softer than ash." },
       "ink-faint":        { "value": "#8A7B63", "type": "color", "description": "Captions, metadata." },
