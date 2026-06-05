@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estancia Cafetera — Case Study & Workflow</title>
+<meta name="description" content="The work behind the work. A volcanic hospitality system designed in 14 days using a brand-to-product methodology and AI-native pipeline.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --obsidian: #1A1814;
+  --clay-deep: #1F1410;
+  --clay-dark: #2E1F15;
+  --clay-lift: #3A2818;
+  --ash: #E8E4DC;
+  --ash-dim: rgba(232, 228, 220, 0.7);
+  --ash-faint: rgba(232, 228, 220, 0.4);
+  --ash-line: rgba(232, 228, 220, 0.1);
+  --ash-line-soft: rgba(232, 228, 220, 0.06);
+  --copper: #B87333;
+  --copper-glow: rgba(184, 115, 51, 0.18);
+  --ember: #C26A2C;
+  --ink-soft: #B8A88E;
+  --ink-faint: #8A7B63;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--obsidian);
+  color: var(--ash);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  min-height: 100vh;
+  font-feature-settings: "kern" 1, "liga" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Subtle grain texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* === HERO === */
+.hero {
+  min-height: 90vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 3rem;
+  left: 2rem;
+  width: 80px;
+  height: 1px;
+  background: var(--copper);
+}
+
+.hero-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 6rem;
+  margin-top: 4rem;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ash);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 3rem;
+  padding-left: 0.5rem;
+}
+
+.thesis {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  line-height: 1.4;
+  color: var(--ash-dim);
+  max-width: 640px;
+  margin-bottom: 4rem;
+}
+
+.thesis em {
+  color: var(--copper);
+  font-style: italic;
+}
+
+.hero-byline {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+}
+
+.hero-byline span:not(:last-child)::after {
+  content: '·';
+  margin-left: 2rem;
+  color: var(--ink-faint);
+}
+
+/* === SECTIONS === */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.phase {
+  padding: 7rem 0;
+  border-top: 1px solid var(--ash-line);
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.phase-marker {
+  position: sticky;
+  top: 3rem;
+}
+
+.phase-letter {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(5rem, 10vw, 8rem);
+  color: var(--copper);
+  line-height: 0.9;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.phase-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ash);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.phase-sublabel {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  display: block;
+}
+
+.phase-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  color: var(--ash);
+  margin-bottom: 3rem;
+  max-width: 580px;
+}
+
+.steps {
+  list-style: none;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 60px 1fr 32px;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--ash-line-soft);
+  align-items: start;
+  transition: background 0.4s ease;
+}
+
+.step:hover {
+  background: linear-gradient(90deg, transparent, rgba(184, 115, 51, 0.02));
+}
+
+.step-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  padding-top: 0.5rem;
+}
+
+.step-content h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--ash);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.step-content p {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin-bottom: 1rem;
+  max-width: 560px;
+}
+
+.step-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--copper);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--copper-glow);
+  transition: all 0.3s ease;
+}
+
+.step-link:hover {
+  color: var(--ember);
+  border-bottom-color: var(--ember);
+  padding-bottom: 4px;
+}
+
+.step-link + .step-link {
+  margin-left: 1.5rem;
+}
+
+.step-status {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.7rem;
+  border-radius: 2px;
+  text-align: center;
+  width: fit-content;
+  white-space: nowrap;
+  margin-top: 0.3rem;
+}
+
+.step.done .step-status {
+  background: var(--copper-glow);
+  color: var(--copper);
+  border: 1px solid rgba(184, 115, 51, 0.3);
+}
+
+.step.in-progress .step-status {
+  background: rgba(194, 106, 44, 0.1);
+  color: var(--ember);
+  border: 1px solid rgba(194, 106, 44, 0.4);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+.step.pending .step-status {
+  background: transparent;
+  color: var(--ink-faint);
+  border: 1px solid var(--ash-line);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* === METHODOLOGY === */
+.methodology {
+  padding: 8rem 2rem;
+  border-top: 1px solid var(--ash-line);
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.methodology .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 2rem;
+}
+
+.methodology h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  color: var(--ash);
+  margin-bottom: 2rem;
+}
+
+.methodology p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--ink-soft);
+  margin: 0 auto 3rem;
+  line-height: 1.5;
+}
+
+.cta {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ash);
+  text-decoration: none;
+  padding: 1.1rem 2.5rem;
+  border: 1px solid var(--copper);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--copper);
+  transition: left 0.4s ease;
+  z-index: -1;
+}
+
+.cta:hover {
+  color: var(--obsidian);
+}
+
+.cta:hover::before {
+  left: 0;
+}
+
+/* === ARTIFACTS === */
+.artifacts {
+  padding: 7rem 0;
+  border-top: 1px solid var(--ash-line);
+}
+
+.artifacts-header {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 4rem;
+  margin-bottom: 3rem;
+  align-items: baseline;
+}
+
+.artifacts-marker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+
+.artifacts h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  color: var(--ash);
+  max-width: 580px;
+}
+
+.artifact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ash-line-soft);
+}
+
+.artifact-card {
+  padding: 1.75rem 1.5rem;
+  border-bottom: 1px solid var(--ash-line-soft);
+  text-decoration: none;
+  color: var(--ash);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.artifact-card:nth-child(odd) {
+  border-right: 1px solid var(--ash-line-soft);
+}
+
+.artifact-card:hover {
+  background: rgba(184, 115, 51, 0.04);
+}
+
+.artifact-card .artifact-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.artifact-card .artifact-name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--ash);
+  margin-bottom: 0.25rem;
+}
+
+.artifact-card .artifact-desc {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.artifact-card .artifact-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--copper);
+  margin-top: 0.75rem;
+  letter-spacing: 0.1em;
+  transition: transform 0.3s ease;
+  align-self: flex-start;
+}
+
+.artifact-card:hover .artifact-arrow {
+  transform: translateX(6px);
+}
+
+/* === FOOTER === */
+footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+  border-top: 1px solid var(--ash-line);
+  position: relative;
+  z-index: 2;
+}
+
+footer .signature {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.75rem;
+  color: var(--ash);
+  margin-bottom: 0.75rem;
+}
+
+footer .role {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 2rem;
+}
+
+footer .footer-meta {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 1.5rem;
+}
+
+footer .copper-line {
+  display: inline-block;
+  width: 60px;
+  height: 1px;
+  background: var(--copper);
+  margin: 2rem auto;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero > * {
+  opacity: 0;
+  animation: fadeUp 1s ease forwards;
+}
+
+.hero-meta { animation-delay: 0.1s; }
+.wordmark { animation-delay: 0.3s; }
+.subtitle { animation-delay: 0.4s; }
+.thesis { animation-delay: 0.6s; }
+.hero-byline { animation-delay: 0.9s; }
+
+.phase, .methodology, .artifacts, footer {
+  opacity: 0;
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.2s;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .phase {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 5rem 0;
+  }
+
+  .phase-marker {
+    position: static;
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+  }
+
+  .phase-letter {
+    font-size: 4rem;
+  }
+
+  .phase-meta {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .artifacts-header {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .artifact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .artifact-card:nth-child(odd) {
+    border-right: none;
+  }
+
+  .step {
+    grid-template-columns: 40px 1fr;
+    gap: 1rem;
+  }
+
+  .step-status {
+    grid-column: 2;
+    margin-top: 0.5rem;
+  }
+
+  .hero {
+    min-height: 80vh;
+    padding-top: 3rem;
+  }
+
+  .hero-meta {
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .hero-byline {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hero-byline span:not(:last-child)::after {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-meta">Case Study — Estancia Cafetera · Config Makeathon 2026</div>
+  <h1 class="wordmark">Estancia Cafetera</h1>
+  <div class="subtitle">A volcanic hospitality system</div>
+  <p class="thesis">
+    Coffee is not the product. <em>Presence is the product.</em>
+    A 14-day case study in designing hospitality as a system — from atmosphere to interface — using AI as infrastructure.
+  </p>
+  <div class="hero-byline">
+    <span>By Julissa Roa</span>
+    <span>Hospitality Brand & Experience Designer</span>
+    <span>June 2026</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- PHASE A -->
+  <section class="phase">
+    <div class="phase-marker">
+      <span class="phase-letter">A</span>
+      <div class="phase-meta">
+        <span class="phase-label">Define</span>
+        <span class="phase-sublabel">Strategy & Foundation</span>
+      </div>
+    </div>
+    <div>
+      <h2 class="phase-title">Naming the why. Building the language the rest of the work answers to.</h2>
+      <ol class="steps">
+
+        <li class="step done">
+          <span class="step-number">01</span>
+          <div class="step-content">
+            <h3>Concept</h3>
+            <p>A volcanic hospitality sanctuary in Tepoztlán where coffee becomes a daily ritual connecting guests to the slower rhythms of the land.</p>
+          </div>
+          <span class="step-status">Done</span>
+        </li>
+
+        <li class="step done">
+          <span class="step-number">02</span>
+          <div class="step-content">
+            <h3>Research & Moodboard</h3>
+            <p>Five reference brands as emotional north stars: Aman (restraint), Casona Sforza (architecture), Hotel 23 Medellín (materiality), Casa TO (atmosphere), Tepoztlán itself (identity).</p>
+          </div>
+          <span class="step-status">Done</span>
+        </li>
+
+        <li class="step done">
+          <span class="step-number">03</span>
+          <div class="step-content">
+            <h3>Strategic Brief</h3>
+            <p>Volcanic Hospitality System v5.0 — the positioning, philosophy, four experience pillars, and the 40/30/20/10 visual formula that governs every asset.</p>
+            <a href="/volcanic-hospitality-system.md" class="step-link">Read brief →</a>
+          </div>
+          <span class="step-status">Done</span>
+        </li>
+
+        <li class="step done">
+          <span class="step-number">04</span>
+          <div class="step-content">
+            <h3>Brand Visual System</h3>
+            <p>Palette · Typography · Two-Register model · Token system. Built in HTML for presentation, JSON for machines, Markdown for AI.</p>
+            <a href="/" class="step-link">View brand system →</a>
+            <a href="/estancia-cafetera.json" class="step-link">Tokens JSON →</a>
+          </div>
+          <span class="step-status">Done</span>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- PHASE B -->
+  <section class="phase">
+    <div class="phase-marker">
+      <span class="phase-letter">B</span>
+      <div class="phase-meta">
+        <span class="phase-label">Plan</span>
+        <span class="phase-sublabel">Surfaces & Slot Inventory</span>
+      </div>
+    </div>
+    <div>
+      <h2 class="phase-title">Deciding where the work lives before deciding what fills it.</h2>
+      <ol class="steps">
+
+        <li class="step done">
+          <span class="step-number">05</span>
+          <div class="step-content">
+            <h3>Deliverable Surfaces</h3>
+            <p>Four surfaces locked: Figma Make marketing site · Instagram launch grid with motion reels · Guest Portal welcome screen · Figma Weave motion hero. Each chosen because it serves a different proof of the positioning.</p>
+          </div>
+          <span class="step-status">Done</span>
+        </li>
+
+        <li class="step in-progress">
+          <span class="step-number">06</span>
+          <div class="step-content">
+            <h3>Wireframes</h3>
+            <p>Lo-fi sketches for the five Figma Make frames: Hero · Philosophy · The Place · Ritual · Stay. Inverting the hospitality category convention by putting philosophy second and booking last.</p>
+          </div>
+          <span class="step-status">Active</span>
+        </li>
+
+        <li class="step done">
+          <span class="step-number">07</span>
+          <div class="step-content">
+            <h3>Asset Map</h3>
+            <p>Every image and motion slot mapped to its surface. Reuse counted. Final count: ten to twelve unique stills plus one motion loop — eighty-five percent less generation than the original plan called for.</p>
+            <a href="/asset-map.md" class="step-link">Read asset map →</a>
+          </div>
+          <span class="step-status">Done</span>
+        </li>
+
+        <li class="step in-progress">
+          <span class="step-number">08</span>
+          <div class="step-content">
+            <h3>AI Test Generation</h3>
+            <p>A three-prompt validation set, run before the full library. Confirms the Volcanic Hospitality direction renders correctly in Midjourney before committing the credit budget.</p>
+            <a href="/image-direction.html" class="step-link">View prompt library →</a>
+          </div>
+          <span class="step-status">Active</span>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- PHASE C -->
+  <section class="phase">
+    <div class="phase-marker">
+      <span class="phase-letter">C</span>
+      <div class="phase-meta">
+        <span class="phase-label">Ship</span>
+        <span class="phase-sublabel">Build, Deploy & Release</span>
+      </div>
+    </div>
+    <div>
+      <h2 class="phase-title">Composite, deploy, share. The work doesn't exist until it's shared.</h2>
+      <ol class="steps">
+
+        <li class="step pending">
+          <span class="step-number">09</span>
+          <div class="step-content">
+            <h3>Deliverables Build</h3>
+            <p>Figma Foundations sync via Tokens Studio → five frames composed with real Phase 01 assets → Figma Make converts to live site → Guest Portal welcome screen as the product surface proof. Days 3-8.</p>
+          </div>
+          <span class="step-status">Pending</span>
+        </li>
+
+        <li class="step pending">
+          <span class="step-number">10</span>
+          <div class="step-content">
+            <h3>Deploy</h3>
+            <p>Vercel auto-deploys the brand documentation. Figma Make publishes the live experience. Screen recordings capture the moment for Build-in-Public.</p>
+          </div>
+          <span class="step-status">Pending</span>
+        </li>
+
+        <li class="step pending">
+          <span class="step-number">11</span>
+          <div class="step-content">
+            <h3>Submit & Share</h3>
+            <p>Contra submission · Figma Community share · LinkedIn long-form · Instagram Reel · X thread · Medium pipeline doc. The positioning leads. The work is the receipt.</p>
+          </div>
+          <span class="step-status">Pending</span>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section class="methodology">
+    <div class="eyebrow">The Framework Behind the Work</div>
+    <h2>This work follows the JR Operator Design Workflow.</h2>
+    <p>A portable eleven-step methodology for brand-to-product hospitality projects. Apply to any new project. Reference when drift is suspected. The framework that makes drift detectable.</p>
+    <a href="/design-workflow.md" class="cta">Read the framework</a>
+  </section>
+
+  <!-- ARTIFACTS -->
+  <section class="artifacts">
+    <div class="artifacts-header">
+      <span class="artifacts-marker">All artifacts</span>
+      <h2>Every document and surface that supports this case study, in one place.</h2>
+    </div>
+
+    <div class="artifact-grid">
+
+      <a href="/" class="artifact-card">
+        <span class="artifact-label">01 · Brand System</span>
+        <span class="artifact-name">Brand System v4</span>
+        <span class="artifact-desc">Palette, typography, two-register model, ink-bleed wordmark. The visual brand book.</span>
+        <span class="artifact-arrow">View →</span>
+      </a>
+
+      <a href="/volcanic-hospitality-system.md" class="artifact-card">
+        <span class="artifact-label">02 · Strategic Brief</span>
+        <span class="artifact-name">Volcanic Hospitality System</span>
+        <span class="artifact-desc">The positioning, four pillars, and 40/30/20/10 formula. Strategic frame v5.0.</span>
+        <span class="artifact-arrow">Read →</span>
+      </a>
+
+      <a href="/image-direction.html" class="artifact-card">
+        <span class="artifact-label">03 · Image Direction</span>
+        <span class="artifact-name">Image Direction v5</span>
+        <span class="artifact-desc">Midjourney prompt library — 40 prompts across architecture, ritual, landscape, product.</span>
+        <span class="artifact-arrow">View →</span>
+      </a>
+
+      <a href="/asset-map.md" class="artifact-card">
+        <span class="artifact-label">04 · Asset Map</span>
+        <span class="artifact-name">Makeathon Asset Map</span>
+        <span class="artifact-desc">Every image and motion slot mapped to a surface. Reuse counted. Production-ready.</span>
+        <span class="artifact-arrow">Read →</span>
+      </a>
+
+      <a href="/design-workflow.md" class="artifact-card">
+        <span class="artifact-label">05 · Methodology</span>
+        <span class="artifact-name">JR Operator Design Workflow</span>
+        <span class="artifact-desc">The eleven-step framework. Portable across hospitality projects.</span>
+        <span class="artifact-arrow">Read →</span>
+      </a>
+
+      <a href="/estancia-cafetera.md" class="artifact-card">
+        <span class="artifact-label">06 · Brand Spec</span>
+        <span class="artifact-name">Estancia Cafetera Brief</span>
+        <span class="artifact-desc">Machine-readable brand specification. Used by Claude as project context.</span>
+        <span class="artifact-arrow">Read →</span>
+      </a>
+
+      <a href="/estancia-cafetera.json" class="artifact-card">
+        <span class="artifact-label">07 · Tokens</span>
+        <span class="artifact-name">Design Tokens JSON</span>
+        <span class="artifact-desc">Tokens Studio compatible. Source of truth flowing from GitHub into Figma.</span>
+        <span class="artifact-arrow">Open →</span>
+      </a>
+
+      <a href="https://github.com/JulsR/estancia-cafetera" class="artifact-card">
+        <span class="artifact-label">08 · Repository</span>
+        <span class="artifact-name">GitHub — JulsR/estancia-cafetera</span>
+        <span class="artifact-desc">Source of truth. Every artifact, every commit, every iteration.</span>
+        <span class="artifact-arrow">Open →</span>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="signature">Julissa Roa</div>
+  <div class="role">Hospitality Brand & Experience Designer</div>
+  <div class="copper-line"></div>
+  <div class="footer-meta">Config Makeathon 2026 · Submission June 17 · Tepoztlán in mind</div>
+</footer>
+
+</body>
+</html>
