@@ -1,0 +1,97 @@
+{
+  "manifest": {
+    "version": "2.0.0",
+    "updated": "2026-06-05",
+    "project": "Estancia Cafetera",
+    "purpose": "Locked brand visual library + reference inventory",
+    "registers": ["dark_interior", "bright_property"]
+  },
+
+  "brand_library": {
+    "description": "Public-facing brand imagery. AI-generated per the Volcanic Hospitality System brief. Used on site, social, portal, print.",
+    "phase_01": {
+      "locked": true,
+      "date_locked": "2026-06-05",
+      "source": "Midjourney v7",
+      "keep_rate": "6/6 (100%)",
+      "images": [
+        {
+          "id": "EC-AI-A-01",
+          "title": "Volcanic Stone Facade",
+          "file": "images/phase-01/EC-AI-A-01.png",
+          "category": "architecture",
+          "slot": "Hero-H1",
+          "role": "site_hero",
+          "prompt_ref": "01.01",
+          "register": "bright_property",
+          "anchor": true,
+          "notes": "Brand anchor image. Site hero, Contra cover, LinkedIn header."
+        },
+        {
+          "id": "EC-AI-A-02",
+          "title": "Interior Courtyard with Olive Tree",
+          "file": "images/phase-01/EC-AI-A-02.png",
+          "category": "architecture",
+          "slot": "Place-PL1",
+          "role": "estate_frame",
+          "prompt_ref": "01.02",
+          "register": "bright_property"
+        },
+        {
+          "id": "EC-AI-A-03",
+          "title": "Long Corridor with Arches",
+          "file": "images/phase-01/EC-AI-A-03.png",
+          "category": "architecture",
+          "slot": "Place-PL3",
+          "role": "signature_detail",
+          "prompt_ref": "01.04",
+          "register": "bright_property"
+        },
+        {
+          "id": "EC-AI-A-04",
+          "title": "Pool with Tepozteco Backdrop",
+          "file": "images/phase-01/EC-AI-A-04.png",
+          "category": "architecture_landscape",
+          "slot": "Place-PL2",
+          "role": "architecture_landscape",
+          "prompt_ref": "01.08",
+          "register": "bright_property"
+        },
+        {
+          "id": "EC-AI-R-01",
+          "title": "Hands with Ceramic Cup",
+          "file": "images/phase-01/EC-AI-R-01.png",
+          "category": "ritual",
+          "slot": "Ritual-R1",
+          "role": "ritual_hero",
+          "prompt_ref": "02.01",
+          "register": "dark_interior"
+        },
+        {
+          "id": "EC-AI-L-01",
+          "title": "Bougainvillea on Volcanic Stone",
+          "file": "images/phase-01/EC-AI-L-01.png",
+          "category": "landscape",
+          "slot": "Place-PL4",
+          "role": "color_story",
+          "prompt_ref": "03.02",
+          "register": "bright_property",
+          "notes": "Also serves as Instagram color/accent post."
+        }
+      ]
+    },
+    "phase_02_planned": {
+      "locked": false,
+      "estimated_count": "4-6 supporting images",
+      "categories": ["room_interior", "bathroom_detail", "second_ritual", "atmospheric_supplements"],
+      "timing": "Day 4-5 (Jun 9-10)"
+    }
+  },
+
+  "reference": {
+    "description": "Personal Tepoztlán trip photos. Inspiration and mood ONLY. Never appears publicly as Estancia Cafetera. Informs prompts and decisions.",
+    "location": "local-only (not deployed)",
+    "count": 14,
+    "notes": "Real photos from Julissa's trip. Treated as research material per v4.1 decision."
+  }
+}
